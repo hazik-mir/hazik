@@ -1,0 +1,438 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HAZIK</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #0d1117;
+  color: #f0f6fc;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: min(900px, calc(100% - 32px));
+  margin: auto;
+}
+
+/* NAV */
+
+nav {
+  border-bottom: 1px solid #21262d;
+}
+
+.nav {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.logo span {
+  color: #39d353;
+}
+
+.github {
+  border: 1px solid #30363d;
+  padding: 7px 13px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #c9d1d9;
+}
+
+.github:hover {
+  border-color: #8b949e;
+}
+
+/* HERO */
+
+.hero {
+  padding: 90px 0 65px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(52px, 9vw, 82px);
+  letter-spacing: -4px;
+}
+
+.hero h1 span {
+  color: #39d353;
+}
+
+.hero p {
+  color: #8b949e;
+  font-size: 18px;
+  margin: 15px 0 25px;
+  max-width: 550px;
+}
+
+.button {
+  display: inline-block;
+  background: #238636;
+  border: 1px solid #2ea043;
+  padding: 9px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.button:hover {
+  background: #2ea043;
+}
+
+/* PROJECTS */
+
+.projects-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.projects-header h2 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.status {
+  color: #8b949e;
+  font-size: 13px;
+}
+
+#projects {
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.project {
+  display: block;
+  padding: 18px 20px;
+  border-bottom: 1px solid #21262d;
+  transition: background .15s;
+}
+
+.project:last-child {
+  border-bottom: 0;
+}
+
+.project:hover {
+  background: #161b22;
+}
+
+.project-name {
+  color: #58a6ff;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.project-description {
+  color: #8b949e;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.project-info {
+  display: flex;
+  gap: 18px;
+  margin-top: 10px;
+  color: #8b949e;
+  font-size: 12px;
+}
+
+.language::before {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  background: #39d353;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.empty {
+  padding: 30px;
+  text-align: center;
+  color: #8b949e;
+}
+
+/* FOOTER */
+
+footer {
+  margin-top: 80px;
+  padding: 25px 0;
+  border-top: 1px solid #21262d;
+  color: #8b949e;
+  font-size: 13px;
+}
+
+@media(max-width:600px) {
+  .hero {
+    padding-top: 65px;
+  }
+
+  .hero h1 {
+    letter-spacing: -3px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="container nav">
+
+    <div class="logo">
+      HAZIK<span>.</span>
+    </div>
+
+    <a
+      class="github"
+      href="https://github.com/Hazik-Mir"
+      target="_blank">
+      GitHub ↗
+    </a>
+
+  </div>
+</nav>
+
+
+<main class="container">
+
+  <section class="hero">
+
+    <h1>HAZIK<span>.</span></h1>
+
+    <p>
+      Developer, creator and builder.
+      I make apps, games, tools and random things.
+    </p>
+
+    <a
+      class="button"
+      href="https://github.com/Hazik-Mir"
+      target="_blank">
+      View GitHub
+    </a>
+
+  </section>
+
+
+  <section>
+
+    <div class="projects-header">
+
+      <h2>Projects</h2>
+
+      <span class="status" id="status">
+        Loading...
+      </span>
+
+    </div>
+
+    <div id="projects">
+      <div class="empty">
+        Loading projects...
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+  <div class="container">
+    © 2026 HAZIK
+  </div>
+</footer>
+
+
+<script>
+
+const username = "Hazik-Mir";
+
+async function loadProjects() {
+
+  const projects = document.getElementById("projects");
+  const status = document.getElementById("status");
+
+  try {
+
+    const response = await fetch(
+      `https://api.github.com/users/${username}/repos?sort=updated&direction=desc&per_page=100`
+    );
+
+    if (!response.ok) {
+      throw new Error("GitHub API error");
+    }
+
+    const repos = await response.json();
+
+    projects.innerHTML = "";
+
+    /*
+      Remove forks so the website mainly shows
+      projects you actually own.
+    */
+    const ownRepos = repos.filter(repo => !repo.fork);
+
+    if (ownRepos.length === 0) {
+
+      projects.innerHTML = `
+        <div class="empty">
+          No public projects found.
+        </div>
+      `;
+
+      status.textContent = "0 projects";
+      return;
+    }
+
+    status.textContent =
+      `${ownRepos.length} project${ownRepos.length === 1 ? "" : "s"}`;
+
+    ownRepos.forEach(repo => {
+
+      const project = document.createElement("a");
+
+      project.className = "project";
+      project.href = repo.html_url;
+      project.target = "_blank";
+      project.rel = "noopener";
+
+      const description =
+        repo.description || "No description provided.";
+
+      const language =
+        repo.language || "Code";
+
+      project.innerHTML = `
+        <div class="project-name">
+          ${escapeHTML(repo.name)}
+        </div>
+
+        <div class="project-description">
+          ${escapeHTML(description)}
+        </div>
+
+        <div class="project-info">
+
+          <span class="language">
+            ${escapeHTML(language)}
+          </span>
+
+          <span>
+            ★ ${repo.stargazers_count}
+          </span>
+
+          <span>
+            Updated ${timeAgo(repo.updated_at)}
+          </span>
+
+        </div>
+      `;
+
+      projects.appendChild(project);
+
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    status.textContent = "Offline";
+
+    projects.innerHTML = `
+      <div class="empty">
+        Couldn't load GitHub projects.
+        <br><br>
+        <a
+          href="https://github.com/${username}"
+          target="_blank"
+          style="color:#58a6ff">
+          Open GitHub instead →
+        </a>
+      </div>
+    `;
+  }
+}
+
+
+function timeAgo(date) {
+
+  const seconds =
+    Math.floor(
+      (Date.now() - new Date(date).getTime()) / 1000
+    );
+
+  if (seconds < 60)
+    return "just now";
+
+  const minutes =
+    Math.floor(seconds / 60);
+
+  if (minutes < 60)
+    return `${minutes}m ago`;
+
+  const hours =
+    Math.floor(minutes / 60);
+
+  if (hours < 24)
+    return `${hours}h ago`;
+
+  const days =
+    Math.floor(hours / 24);
+
+  if (days < 30)
+    return `${days}d ago`;
+
+  const months =
+    Math.floor(days / 30);
+
+  if (months < 12)
+    return `${months}mo ago`;
+
+  return `${Math.floor(months / 12)}y ago`;
+}
+
+
+function escapeHTML(text) {
+
+  const div = document.createElement("div");
+
+  div.textContent = text;
+
+  return div.innerHTML;
+}
+
+
+loadProjects();
+
+</script>
+
+</body>
+</html>
+```
