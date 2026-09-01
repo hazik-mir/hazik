@@ -1,53 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>hazik.in — Secret Challenge</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>hazik.in/quest</title><link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="loader" class="loader">
-    <div class="loader-logo">hazik<span>.in</span></div>
-    <div class="loader-bar"><i></i></div>
-    <p>Loading quest...</p>
-  </div>
-
-  <main class="card hidden" id="app">
-    <div class="topline">
-      <span class="dot"></span>
-      <span>hazik.in</span>
-      <span class="live">LIVE QUEST</span>
-    </div>
-
-    <div class="badge">MINECRAFT JAVA • PVP EVENT</div>
-    <h1>Crack the<br><span>Secret Number</span></h1>
-    <p class="subtitle">Five guesses every minute. Can you find it?</p>
-
-    <div class="stats">
-      <div><small>GUESSES LEFT</small><strong id="remaining">5</strong></div>
-      <div><small>RESET IN</small><strong id="timer">READY</strong></div>
-    </div>
-
-    <form id="guessForm">
-      <input id="guess" type="number" min="0" max="999999"
-             inputmode="numeric" autocomplete="off"
-             placeholder="Enter your guess..." required>
-      <button id="guessButton" type="submit">GUESS</button>
-    </form>
-
-    <div id="message" class="message">Your quest starts now.</div>
-
-    <section id="win" class="win hidden">
-      <div class="win-icon">✓</div>
-      <h2>YOU CRACKED IT!</h2>
-      <p>Your reward code:</p>
-      <div id="reward" class="reward"></div>
-      <p class="claim">Create a ticket in the <b>General</b> channel of the Discord server and paste this code to claim your prize.</p>
-      <button id="copy" type="button">COPY REWARD CODE</button>
-    </section>
-  </main>
-
-  <script src="app.js"></script>
-</body>
-</html>
+<header><div class="wrap nav"><a href="/" class="brand">hazik.in</a><span>/</span><span>quest</span><span class="live">● Live</span></div></header>
+<main class="wrap">
+<div class="crumb">hazik.in / quest</div>
+<section class="panel intro"><h1>Secret Number Challenge</h1><p>Guess the secret number to unlock one prize. One person can win only once.</p></section>
+<section class="panel">
+<div class="heading"><h2>Challenge</h2><span class="tag">Minecraft Java</span></div>
+<div class="stats"><div><small>GUESSES LEFT</small><b id="remaining">5</b></div><div><small>RESET IN</small><b id="timer">Ready</b></div></div>
+<form id="form"><label for="guess">Your guess</label><div class="row"><input id="guess" type="number" min="0" max="999999" placeholder="Enter a number" required><<button id="submit">Submit guess</button></div></form>
+<p id="msg">You have 5 guesses this minute.</p>
+</section>
+<section id="win" class="panel hidden">
+<div class="success">Challenge completed</div>
+<h2>You won!</h2>
+<p>Your prize will be selected by the server. Your redeem code will never be displayed here.</p>
+<button id="spin" class="primary">Spin prize wheel</button>
+<div id="wheelArea" class="wheelArea hidden"><div class="pointer"></div><div id="wheel" class="wheel"></div>
+<p id="result"></p><div id="claim" class="claim hidden"><h3>Reward locked to your win</h3>
+<p><strong>Raise a ticket in the General Discord channel</strong> to claim your reward.</p>
+<p class="muted">Do not share your reward code publicly. Staff will verify your win using the claim ID.</p>
+</div></div>
+</section>
+<section id="done" class="panel hidden"><div class="success">Already completed</div><h2>This challenge has already been won</h2><p>You cannot submit more guesses from this challenge session.</p><p class="muted">If you already won, raise a ticket in the General Discord channel to claim your reward.</p></section>
+</main><script src="app.js"></script>
+</body></html>
