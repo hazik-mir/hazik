@@ -1,5 +1,5 @@
 // Public frontend. NEVER put SECRET_NUMBER or reward codes here.
-const API_URL="https://quest-backend-ubu1.onrender.com";
+const API_URL="https://YOUR-RENDER-SERVICE.onrender.com";
 const form=document.getElementById("form"),input=document.getElementById("guess"),btn=document.getElementById("submit");
 const msg=document.getElementById("msg"),remaining=document.getElementById("remaining"),timer=document.getElementById("timer");
 const win=document.getElementById("win"),done=document.getElementById("done"),spin=document.getElementById("spin");
