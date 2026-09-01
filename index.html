@@ -94,6 +94,7 @@ nav {
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .button:hover {
@@ -106,7 +107,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 15px;
+  margin-bottom: 6px;
 }
 
 .projects-header h2 {
@@ -119,6 +120,17 @@ nav {
   font-size: 13px;
 }
 
+.credit-note {
+  color: #8b949e;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+.credit-note b {
+  color: #e3b341;
+  font-weight: 600;
+}
+
 #projects {
   border: 1px solid #30363d;
   border-radius: 8px;
@@ -127,9 +139,16 @@ nav {
 
 .project {
   display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  font-family: inherit;
   padding: 18px 20px;
   border-bottom: 1px solid #21262d;
   transition: background .15s;
+  cursor: pointer;
+  color: inherit;
 }
 
 .project:last-child {
@@ -158,6 +177,7 @@ nav {
   margin-top: 10px;
   color: #8b949e;
   font-size: 12px;
+  flex-wrap: wrap;
 }
 
 .language::before {
@@ -194,6 +214,353 @@ footer {
   .hero h1 {
     letter-spacing: -3px;
   }
+}
+
+/* MODAL */
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(1, 4, 9, 0.75);
+  backdrop-filter: blur(2px);
+  z-index: 100;
+  padding: 24px 12px;
+  overflow-y: auto;
+}
+
+.modal-overlay.open {
+  display: block;
+}
+
+.modal {
+  width: min(760px, 100%);
+  margin: 0 auto;
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 22px;
+  border-bottom: 1px solid #21262d;
+  position: sticky;
+  top: 0;
+  background: #0d1117;
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #f0f6fc;
+  word-break: break-word;
+}
+
+.modal-subtitle {
+  color: #8b949e;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.modal-credit-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  background: rgba(227, 179, 65, 0.12);
+  border: 1px solid rgba(227, 179, 65, 0.4);
+  color: #e3b341;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+.modal-close {
+  background: none;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.modal-close:hover {
+  border-color: #8b949e;
+}
+
+.modal-body {
+  padding: 22px;
+}
+
+.modal-section {
+  margin-bottom: 26px;
+}
+
+.modal-section:last-child {
+  margin-bottom: 0;
+}
+
+.modal-section h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #8b949e;
+  margin: 0 0 12px;
+}
+
+.modal-loading {
+  text-align: center;
+  color: #8b949e;
+  padding: 40px 0;
+  font-size: 14px;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.stat-box {
+  border: 1px solid #21262d;
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #161b22;
+}
+
+.stat-box .label {
+  color: #8b949e;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.stat-box .value {
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 4px;
+  color: #f0f6fc;
+  word-break: break-word;
+}
+
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.topic-tag {
+  background: rgba(56, 139, 253, 0.1);
+  border: 1px solid rgba(56, 139, 253, 0.4);
+  color: #58a6ff;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.link-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #21262d;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #58a6ff;
+  font-size: 14px;
+}
+
+.link-row:hover {
+  border-color: #8b949e;
+  background: #161b22;
+}
+
+.link-row .tag {
+  color: #8b949e;
+  font-size: 11px;
+  text-transform: uppercase;
+  border: 1px solid #30363d;
+  border-radius: 4px;
+  padding: 1px 6px;
+  flex-shrink: 0;
+}
+
+/* Platform tabs / download */
+
+.platform-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.platform-tab {
+  background: #161b22;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+  font-size: 13px;
+  padding: 7px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.platform-tab.active {
+  background: #238636;
+  border-color: #2ea043;
+  color: #fff;
+}
+
+.cmd-box {
+  position: relative;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+.cmd-box pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-family: "SFMono-Regular", Consolas, Menlo, monospace;
+  font-size: 12.5px;
+  color: #a5d6ff;
+  line-height: 1.6;
+}
+
+.cmd-box .comment {
+  color: #8b949e;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #21262d;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.copy-btn:hover {
+  border-color: #8b949e;
+}
+
+/* Releases / tags */
+
+.release-item {
+  border: 1px solid #21262d;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+}
+
+.release-item:last-child {
+  margin-bottom: 0;
+}
+
+.release-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.release-name {
+  font-weight: 600;
+  color: #f0f6fc;
+  font-size: 14px;
+}
+
+.release-date {
+  color: #8b949e;
+  font-size: 12px;
+}
+
+.release-dl {
+  display: inline-block;
+  margin-top: 8px;
+  color: #58a6ff;
+  font-size: 13px;
+  border: 1px solid #30363d;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+.release-dl:hover {
+  border-color: #8b949e;
+}
+
+.tag-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-pill {
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+  font-size: 12.5px;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+/* Contributors (bottom) */
+
+.contributors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.contributor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #21262d;
+  border-radius: 20px;
+  padding: 5px 12px 5px 5px;
+  font-size: 13px;
+  color: #c9d1d9;
+}
+
+.contributor:hover {
+  border-color: #8b949e;
+}
+
+.contributor img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: block;
+}
+
+.contributor .count {
+  color: #8b949e;
+  font-size: 11px;
+}
+
+.muted-line {
+  color: #8b949e;
+  font-size: 13px;
 }
 </style>
 </head>
@@ -243,12 +610,16 @@ footer {
 
     <div class="projects-header">
 
-      <h2>Projects</h2>
+      <h2>Open Source Projects</h2>
 
       <span class="status" id="status">
         Loading...
       </span>
 
+    </div>
+
+    <div class="credit-note">
+      All projects below are open source. <b>Must credit Hazik before use.</b> Click any project for full details, releases and download commands.
     </div>
 
     <div id="projects">
@@ -269,9 +640,35 @@ footer {
 </footer>
 
 
+<!-- PROJECT DETAIL MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="modal-title">Loading…</div>
+        <div class="modal-subtitle" id="modal-subtitle"></div>
+        <div class="modal-credit-badge">
+          ⚠ Must credit hazik before use
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+
+    <div class="modal-body" id="modal-body">
+      <div class="modal-loading">Loading project details…</div>
+    </div>
+
+  </div>
+</div>
+
+
 <script>
 
 const username = "Hazik-Mir";
+let currentRepo = null;
+let currentCommands = {};
+let activePlatform = "linux";
 
 async function loadProjects() {
 
@@ -315,12 +712,11 @@ async function loadProjects() {
 
     ownRepos.forEach(repo => {
 
-      const project = document.createElement("a");
+      const project = document.createElement("button");
 
       project.className = "project";
-      project.href = repo.html_url;
-      project.target = "_blank";
-      project.rel = "noopener";
+      project.type = "button";
+      project.addEventListener("click", () => openProject(repo));
 
       const description =
         repo.description || "No description provided.";
@@ -345,6 +741,10 @@ async function loadProjects() {
 
           <span>
             ★ ${repo.stargazers_count}
+          </span>
+
+          <span>
+            ⑂ ${repo.forks_count}
           </span>
 
           <span>
@@ -379,6 +779,367 @@ async function loadProjects() {
   }
 }
 
+
+/* ---------- MODAL / PROJECT DETAILS ---------- */
+
+async function openProject(repoStub) {
+
+  const overlay = document.getElementById("modal-overlay");
+  const body = document.getElementById("modal-body");
+  const title = document.getElementById("modal-title");
+  const subtitle = document.getElementById("modal-subtitle");
+
+  currentRepo = repoStub;
+
+  title.textContent = repoStub.name;
+  subtitle.textContent = "Fetching project details…";
+  body.innerHTML = `<div class="modal-loading">Loading project details…</div>`;
+
+  overlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+
+  try {
+
+    const [repoRes, releasesRes, tagsRes, contributorsRes] =
+      await Promise.allSettled([
+        fetch(`https://api.github.com/repos/${username}/${repoStub.name}`),
+        fetch(`https://api.github.com/repos/${username}/${repoStub.name}/releases?per_page=10`),
+        fetch(`https://api.github.com/repos/${username}/${repoStub.name}/tags?per_page=10`),
+        fetch(`https://api.github.com/repos/${username}/${repoStub.name}/contributors?per_page=15`)
+      ]);
+
+    const repo = repoRes.status === "fulfilled" && repoRes.value.ok
+      ? await repoRes.value.json()
+      : repoStub;
+
+    const releases = releasesRes.status === "fulfilled" && releasesRes.value.ok
+      ? await releasesRes.value.json()
+      : [];
+
+    const tags = tagsRes.status === "fulfilled" && tagsRes.value.ok
+      ? await tagsRes.value.json()
+      : [];
+
+    const contributors = contributorsRes.status === "fulfilled" && contributorsRes.value.ok
+      ? await contributorsRes.value.json()
+      : [];
+
+    // packages best-effort, GitHub API often needs auth for this — fail silently
+    let packages = [];
+    try {
+      const pkgRes = await fetch(
+        `https://api.github.com/users/${username}/packages?package_type=container`
+      );
+      if (pkgRes.ok) {
+        const allPkgs = await pkgRes.json();
+        packages = Array.isArray(allPkgs)
+          ? allPkgs.filter(p => p.repository && p.repository.name === repo.name)
+          : [];
+      }
+    } catch (e) {
+      packages = [];
+    }
+
+    renderModal(repo, releases, tags, contributors, packages);
+
+  } catch (error) {
+
+    console.error(error);
+    body.innerHTML = `
+      <div class="modal-section">
+        <div class="muted-line">
+          Couldn't load full details.
+          <a href="${repoStub.html_url}" target="_blank" style="color:#58a6ff">Open on GitHub instead →</a>
+        </div>
+      </div>
+    `;
+  }
+}
+
+function closeModal() {
+  document.getElementById("modal-overlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+document.getElementById("modal-overlay").addEventListener("click", (e) => {
+  if (e.target.id === "modal-overlay") closeModal();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
+});
+
+
+function renderModal(repo, releases, tags, contributors, packages) {
+
+  const title = document.getElementById("modal-title");
+  const subtitle = document.getElementById("modal-subtitle");
+  const body = document.getElementById("modal-body");
+
+  title.textContent = repo.name;
+  subtitle.textContent = repo.description || "No description provided.";
+
+  const cloneUrl = repo.clone_url || `https://github.com/${username}/${repo.name}.git`;
+  const branch = repo.default_branch || "main";
+
+  currentCommands = buildCommands(repo.name, cloneUrl, branch);
+
+  // ----- stats -----
+  const statsHTML = `
+    <div class="stat-grid">
+      <div class="stat-box"><div class="label">Language</div><div class="value">${escapeHTML(repo.language || "—")}</div></div>
+      <div class="stat-box"><div class="label">Stars</div><div class="value">★ ${repo.stargazers_count ?? 0}</div></div>
+      <div class="stat-box"><div class="label">Forks</div><div class="value">⑂ ${repo.forks_count ?? 0}</div></div>
+      <div class="stat-box"><div class="label">Open Issues</div><div class="value">${repo.open_issues_count ?? 0}</div></div>
+      <div class="stat-box"><div class="label">Watchers</div><div class="value">${repo.watchers_count ?? 0}</div></div>
+      <div class="stat-box"><div class="label">License</div><div class="value">${escapeHTML(repo.license?.spdx_id || repo.license?.name || "None")}</div></div>
+      <div class="stat-box"><div class="label">Default Branch</div><div class="value">${escapeHTML(branch)}</div></div>
+      <div class="stat-box"><div class="label">Size</div><div class="value">${formatSize(repo.size)}</div></div>
+      <div class="stat-box"><div class="label">Created</div><div class="value">${formatDate(repo.created_at)}</div></div>
+      <div class="stat-box"><div class="label">Last Push</div><div class="value">${timeAgo(repo.pushed_at)}</div></div>
+    </div>
+  `;
+
+  // ----- topics -----
+  const topics = repo.topics && repo.topics.length
+    ? `
+      <div class="modal-section">
+        <h3>Topics</h3>
+        <div class="topics">
+          ${repo.topics.map(t => `<span class="topic-tag">${escapeHTML(t)}</span>`).join("")}
+        </div>
+      </div>
+    `
+    : "";
+
+  // ----- links -----
+  const linkRows = [];
+
+  linkRows.push(`
+    <a class="link-row" href="${repo.html_url}" target="_blank">
+      <span class="tag">Repo</span> GitHub — ${escapeHTML(repo.full_name || repo.name)}
+    </a>
+  `);
+
+  if (repo.homepage) {
+    linkRows.push(`
+      <a class="link-row" href="${repo.homepage}" target="_blank">
+        <span class="tag">Website</span> ${escapeHTML(repo.homepage)}
+      </a>
+    `);
+  }
+
+  linkRows.push(`
+    <a class="link-row" href="${repo.html_url}/issues" target="_blank">
+      <span class="tag">Issues</span> Report an issue
+    </a>
+  `);
+
+  const linksHTML = `
+    <div class="modal-section">
+      <h3>Links</h3>
+      <div class="links-list">
+        ${linkRows.join("")}
+      </div>
+    </div>
+  `;
+
+  // ----- download / clone -----
+  const downloadHTML = `
+    <div class="modal-section">
+      <h3>Download / Clone</h3>
+      <div class="platform-tabs" id="platform-tabs">
+        ${["windows", "linux", "mac", "android", "other"].map(p => `
+          <button
+            class="platform-tab ${p === activePlatform ? "active" : ""}"
+            data-platform="${p}"
+            onclick="setPlatform('${p}')">
+            ${platformLabel(p)}
+          </button>
+        `).join("")}
+      </div>
+      <div class="cmd-box">
+        <button class="copy-btn" onclick="copyCommand()">Copy</button>
+        <pre id="cmd-output"></pre>
+      </div>
+    </div>
+  `;
+
+  // ----- releases / tags -----
+  let releasesHTML = "";
+
+  if (releases && releases.length) {
+    releasesHTML = `
+      <div class="modal-section">
+        <h3>Releases</h3>
+        ${releases.map(r => `
+          <div class="release-item">
+            <div class="release-top">
+              <span class="release-name">${escapeHTML(r.name || r.tag_name)}</span>
+              <span class="release-date">${formatDate(r.published_at)}</span>
+            </div>
+            <a class="release-dl" href="${r.zipball_url || r.html_url}" target="_blank">
+              ⬇ Download ${escapeHTML(r.tag_name)} (zip)
+            </a>
+          </div>
+        `).join("")}
+      </div>
+    `;
+  } else if (tags && tags.length) {
+    releasesHTML = `
+      <div class="modal-section">
+        <h3>Versions / Tags</h3>
+        <div class="tag-pill-row">
+          ${tags.map(t => `
+            <a class="tag-pill" href="${t.zipball_url}" target="_blank">${escapeHTML(t.name)}</a>
+          `).join("")}
+        </div>
+      </div>
+    `;
+  } else {
+    releasesHTML = `
+      <div class="modal-section">
+        <h3>Releases / Versions</h3>
+        <div class="muted-line">No releases or tags published yet.</div>
+      </div>
+    `;
+  }
+
+  // ----- packages -----
+  const packagesHTML = `
+    <div class="modal-section">
+      <h3>Packages</h3>
+      ${
+        packages && packages.length
+          ? `<div class="links-list">
+              ${packages.map(p => `
+                <a class="link-row" href="${p.html_url}" target="_blank">
+                  <span class="tag">${escapeHTML(p.package_type || "Package")}</span> ${escapeHTML(p.name)}
+                </a>
+              `).join("")}
+            </div>`
+          : `<div class="muted-line">No packages published for this project.</div>`
+      }
+    </div>
+  `;
+
+  // ----- contributors (bottom) -----
+  const contributorsHTML = `
+    <div class="modal-section">
+      <h3>Contributors</h3>
+      ${
+        contributors && contributors.length
+          ? `<div class="contributors">
+              ${contributors.map(c => `
+                <a class="contributor" href="${c.html_url}" target="_blank">
+                  <img src="${c.avatar_url}" alt="${escapeHTML(c.login)}">
+                  ${escapeHTML(c.login)}
+                  <span class="count">${c.contributions} commits</span>
+                </a>
+              `).join("")}
+            </div>`
+          : `<div class="muted-line">No contributor data available.</div>`
+      }
+    </div>
+  `;
+
+  body.innerHTML =
+    `<div class="modal-section">${statsHTML}</div>` +
+    topics +
+    linksHTML +
+    downloadHTML +
+    releasesHTML +
+    packagesHTML +
+    contributorsHTML;
+
+  renderCommand();
+}
+
+function platformLabel(p) {
+  return {
+    windows: "Windows",
+    linux: "Linux",
+    mac: "macOS",
+    android: "Android",
+    other: "Other"
+  }[p];
+}
+
+function buildCommands(name, cloneUrl, branch) {
+
+  const creditLineHash = `# Credit: Hazik (https://hazik.in) — Must credit Hazik before use`;
+  const creditLineRem = `:: Credit: Hazik (https://hazik.in) — Must credit Hazik before use`;
+
+  return {
+    windows:
+`${creditLineRem}
+git clone ${cloneUrl}
+cd ${name}`,
+
+    linux:
+`${creditLineHash}
+git clone ${cloneUrl}
+cd ${name}`,
+
+    mac:
+`${creditLineHash}
+git clone ${cloneUrl}
+cd ${name}`,
+
+    android:
+`${creditLineHash}
+# Requires Termux: pkg install git -y
+git clone ${cloneUrl}
+cd ${name}`,
+
+    other:
+`${creditLineHash}
+curl -L -o ${name}.zip ${cloneUrl.replace(/\.git$/, "")}/archive/refs/heads/${branch}.zip
+unzip ${name}.zip`
+  };
+}
+
+function setPlatform(p) {
+  activePlatform = p;
+
+  document.querySelectorAll(".platform-tab").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.platform === p);
+  });
+
+  renderCommand();
+}
+
+function renderCommand() {
+  const output = document.getElementById("cmd-output");
+  if (!output || !currentCommands[activePlatform]) return;
+  output.textContent = currentCommands[activePlatform];
+}
+
+function copyCommand() {
+  const text = currentCommands[activePlatform] || "";
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector(".copy-btn");
+    const original = btn.textContent;
+    btn.textContent = "Copied!";
+    setTimeout(() => btn.textContent = original, 1500);
+  });
+}
+
+
+/* ---------- HELPERS ---------- */
+
+function formatDate(date) {
+  if (!date) return "—";
+  return new Date(date).toLocaleDateString(undefined, {
+    year: "numeric", month: "short", day: "numeric"
+  });
+}
+
+function formatSize(kb) {
+  if (!kb && kb !== 0) return "—";
+  if (kb < 1024) return `${kb} KB`;
+  return `${(kb / 1024).toFixed(1)} MB`;
+}
 
 function timeAgo(date) {
 
@@ -434,4 +1195,3 @@ loadProjects();
 
 </body>
 </html>
-
