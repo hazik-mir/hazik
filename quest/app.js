@@ -1,5 +1,5 @@
 // Public frontend: no secret number or reward code belongs here.
-const API_URL = "https://YOUR-RENDER-SERVICE.onrender.com";
+const API_URL = "https://quest-backend-ubu1.onrender.com/";
 
 const loader = document.getElementById("loader");
 const app = document.getElementById("app");
