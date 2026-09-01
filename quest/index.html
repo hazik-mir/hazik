@@ -1,31 +1,182 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>hazik.in/quest</title><link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>hazik.in/quest</title>
+<link rel="stylesheet" href="style.css">
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;background:#fff;color:#1f2328;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:14px;line-height:1.5
+}
+.wrap{width:min(860px,calc(100% - 32px));margin:auto}
+header{border-bottom:1px solid #d0d7de;background:#f6f8fa}
+.nav{height:64px;display:flex;align-items:center;gap:8px;color:#57606a}
+.brand{color:#24292f;text-decoration:none;font-weight:600;font-size:16px}
+.live{
+  margin-left:auto;font-size:12px;color:#1a7f37;font-weight:600;
+  display:flex;align-items:center;gap:5px
+}
+.live:first-letter{font-size:10px}
+main{padding:28px 0 60px}
+.crumb{font-size:13px;color:#57606a;margin-bottom:18px}
+.panel{
+  border:1px solid #d0d7de;border-radius:6px;background:#fff;
+  margin-bottom:16px;padding:24px
+}
+.intro{background:#f6f8fa}
+h1{font-size:30px;line-height:1.2;margin:0 0 8px;font-weight:600;letter-spacing:-.02em}
+h2{font-size:20px;line-height:1.3;margin:0;font-weight:600}
+h3{font-size:16px}
+p{margin:8px 0;color:#57606a}
+.heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tag{
+  border:1px solid #d0d7de;border-radius:20px;padding:3px 9px;
+  color:#57606a;background:#f6f8fa;font-size:12px
+}
+.stats{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;
+  margin:20px 0;padding:0
+}
+.stats>div{
+  border:1px solid #d8dee4;border-radius:6px;padding:14px;background:#f6f8fa
+}
+small{display:block;color:#57606a;font-size:11px;font-weight:600}
+.stats b{display:block;margin-top:2px;font-size:22px;font-weight:600;color:#24292f}
+label{display:block;margin-bottom:6px;font-weight:600}
+.row{display:flex;gap:8px}
+input{
+  flex:1;min-width:0;height:38px;padding:5px 10px;
+  border:1px solid #d0d7de;border-radius:6px;background:#fff;color:#1f2328;
+  font:inherit;outline:none
+}
+input:focus{
+  border-color:#0969da;box-shadow:0 0 0 3px rgba(9,105,218,.15)
+}
+button{
+  height:38px;padding:0 14px;border:1px solid rgba(31,35,40,.15);
+  border-radius:6px;background:#f6f8fa;color:#24292f;
+  font:600 14px inherit;cursor:pointer;transition:background .15s,border-color .15s,transform .1s
+}
+button:hover{background:#eef1f4;border-color:#afb8c1}
+button:active{transform:translateY(1px)}
+.primary{
+  background:#1f883d;color:#fff;border-color:rgba(31,35,40,.15)
+}
+.primary:hover{background:#1a7f37}
+.success{
+  color:#1a7f37;font-size:12px;font-weight:600;margin-bottom:6px
+}
+.success:before{content:"✓ ";font-weight:700}
+.hidden{display:none!important}
+.wheelArea{text-align:center;margin-top:22px}
+.pointer{
+  width:0;height:0;margin:0 auto -1px;position:relative;z-index:2;
+  border-left:8px solid transparent;border-right:8px solid transparent;
+  border-top:0;border-bottom:14px solid #24292f
+}
+.wheel{
+  width:min(260px,70vw);aspect-ratio:1;margin:auto;border-radius:50%;
+  border:5px solid #d0d7de;
+  background:conic-gradient(
+    #f6f8fa 0 45deg,#d8dee4 45deg 90deg,
+    #f6f8fa 90deg 135deg,#d8dee4 135deg 180deg,
+    #f6f8fa 180deg 225deg,#d8dee4 225deg 270deg,
+    #f6f8fa 270deg 315deg,#d8dee4 315deg 360deg
+  );
+  transition:transform 4s cubic-bezier(.15,.75,.15,1)
+}
+#result{font-weight:600;color:#24292f;min-height:24px;margin-top:18px}
+.claim{
+  margin-top:16px;padding:14px;text-align:left;
+  border:1px solid #d0d7de;border-radius:6px;background:#f6f8fa
+}
+.claim h3{margin:0 0 5px}
+.claim p{font-size:13px}
+.muted{color:#6e7781}
+@media(max-width:600px){
+  .wrap{width:min(100% - 20px,860px)}
+  main{padding-top:18px}
+  .panel{padding:18px}
+  .heading{align-items:flex-start;flex-direction:column}
+  .row{flex-direction:column}
+  .row button{width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{transition:none!important}
+}
+</style>
 </head>
 <body>
-<header><div class="wrap nav"><a href="/" class="brand">hazik.in</a><span>/</span><span>quest</span><span class="live">● Live</span></div></header>
+<header>
+  <div class="wrap nav">
+    <a href="/" class="brand">hazik.in</a>
+    <span>/</span>
+    <span>quest</span>
+    <span class="live">● Live</span>
+  </div>
+</header>
+
 <main class="wrap">
-<div class="crumb">hazik.in / quest</div>
-<section class="panel intro"><h1>Secret Number Challenge</h1><p>Guess the secret number to unlock one prize. One person can win only once.</p></section>
-<section class="panel">
-<div class="heading"><h2>Challenge</h2><span class="tag">Minecraft Java</span></div>
-<div class="stats"><div><small>GUESSES LEFT</small><b id="remaining">5</b></div><div><small>RESET IN</small><b id="timer">Ready</b></div></div>
-<form id="form"><label for="guess">Your guess</label><div class="row"><input id="guess" type="number" min="0" max="999999" placeholder="Enter a number" required><<button id="submit">Submit guess</button></div></form>
-<p id="msg">You have 5 guesses this minute.</p>
-</section>
-<section id="win" class="panel hidden">
-<div class="success">Challenge completed</div>
-<h2>You won!</h2>
-<p>Your prize will be selected by the server. Your redeem code will never be displayed here.</p>
-<button id="spin" class="primary">Spin prize wheel</button>
-<div id="wheelArea" class="wheelArea hidden"><div class="pointer"></div><div id="wheel" class="wheel"></div>
-<p id="result"></p><div id="claim" class="claim hidden"><h3>Reward locked to your win</h3>
-<p><strong>Raise a ticket in the General Discord channel</strong> to claim your reward.</p>
-<p class="muted">Do not share your reward code publicly. Staff will verify your win using the claim ID.</p>
-</div></div>
-</section>
-<section id="done" class="panel hidden"><div class="success">Already completed</div><h2>This challenge has already been won</h2><p>You cannot submit more guesses from this challenge session.</p><p class="muted">If you already won, raise a ticket in the General Discord channel to claim your reward.</p></section>
-</main><script src="app.js"></script>
-</body></html>
+  <div class="crumb">hazik.in / quest</div>
+
+  <section class="panel intro">
+    <h1>Secret Number Challenge</h1>
+    <p>Guess the secret number to unlock one prize. One person can win only once.</p>
+  </section>
+
+  <section class="panel">
+    <div class="heading">
+      <h2>Challenge</h2>
+      <span class="tag">Minecraft Java</span>
+    </div>
+
+    <div class="stats">
+      <div><small>GUESSES LEFT</small><b id="remaining">5</b></div>
+      <div><small>RESET IN</small><b id="timer">Ready</b></div>
+    </div>
+
+    <form id="form">
+      <label for="guess">Your guess</label>
+      <div class="row">
+        <input id="guess" type="number" min="0" max="999999"
+               placeholder="Enter a number" required>
+        <button id="submit" type="submit">Submit guess</button>
+      </div>
+    </form>
+    <p id="msg">You have 5 guesses this minute.</p>
+  </section>
+
+  <section id="win" class="panel hidden">
+    <div class="success">Challenge completed</div>
+    <h2>You won!</h2>
+    <p>Your prize will be selected by the server. Your redeem code will never be displayed here.</p>
+    <button id="spin" class="primary">Spin prize wheel</button>
+
+    <div id="wheelArea" class="wheelArea hidden">
+      <div class="pointer"></div>
+      <div id="wheel" class="wheel"></div>
+      <p id="result"></p>
+
+      <div id="claim" class="claim hidden">
+        <h3>Reward locked to your win</h3>
+        <p><strong>Raise a ticket in the General Discord channel</strong> to claim your reward.</p>
+        <p class="muted">Do not share your reward code publicly. Staff will verify your win using the claim ID.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="done" class="panel hidden">
+    <div class="success">Already completed</div>
+    <h2>This challenge has already been won</h2>
+    <p>You cannot submit more guesses from this challenge session.</p>
+    <p class="muted">If you already won, raise a ticket in the General Discord channel to claim your reward.</p>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
