@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hazik.in — Secret Challenge</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="loader" class="loader">
+    <div class="loader-logo">hazik<span>.in</span></div>
+    <div class="loader-bar"><i></i></div>
+    <p>Loading quest...</p>
+  </div>
+
+  <main class="card hidden" id="app">
+    <div class="topline">
+      <span class="dot"></span>
+      <span>hazik.in</span>
+      <span class="live">LIVE QUEST</span>
+    </div>
+
+    <div class="badge">MINECRAFT JAVA • PVP EVENT</div>
+    <h1>Crack the<br><span>Secret Number</span></h1>
+    <p class="subtitle">Five guesses every minute. Can you find it?</p>
+
+    <div class="stats">
+      <div><small>GUESSES LEFT</small><strong id="remaining">5</strong></div>
+      <div><small>RESET IN</small><strong id="timer">READY</strong></div>
+    </div>
+
+    <form id="guessForm">
+      <input id="guess" type="number" min="0" max="999999"
+             inputmode="numeric" autocomplete="off"
+             placeholder="Enter your guess..." required>
+      <button id="guessButton" type="submit">GUESS</button>
+    </form>
+
+    <div id="message" class="message">Your quest starts now.</div>
+
+    <section id="win" class="win hidden">
+      <div class="win-icon">✓</div>
+      <h2>YOU CRACKED IT!</h2>
+      <p>Your reward code:</p>
+      <div id="reward" class="reward"></div>
+      <p class="claim">Create a ticket in the <b>General</b> channel of the Discord server and paste this code to claim your prize.</p>
+      <button id="copy" type="button">COPY REWARD CODE</button>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
