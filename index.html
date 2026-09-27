@@ -4,7 +4,60 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>HAZIK</title>
+<!-- SEO -->
+<title>HAZIK — Open Source Developer, Creator & Builder</title>
+
+<meta name="description" content="HAZIK is an open-source developer and creator building apps, games, tools, libraries and experimental projects. Explore open-source projects, contribute on GitHub, download releases and discover useful developer tools.">
+
+<meta name="keywords" content="Hazik, HAZIK, Hazik Mir, open source, open source developer, programmer, developer, coding, programming, GitHub projects, open source projects, developer tools, programming tools, apps, games, libraries, Python, JavaScript, Android, Linux, web development">
+
+<meta name="author" content="Hazik Mir">
+<meta name="creator" content="Hazik Mir">
+<meta name="publisher" content="HAZIK">
+
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+<link rel="canonical" href="https://hazik.in/">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+
+<!-- Theme -->
+<meta name="theme-color" content="#0d1117">
+<meta name="color-scheme" content="dark">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="HAZIK — Open Source Developer, Creator & Builder">
+<meta property="og:description" content="Explore HAZIK's open-source projects, developer tools, apps, games and experiments. Fork, contribute and build with the community.">
+<meta property="og:url" content="https://hazik.in/">
+<meta property="og:site_name" content="HAZIK">
+<meta property="og:image" content="https://hazik.in/icon.png">
+<meta property="og:image:alt" content="HAZIK logo">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HAZIK — Open Source Developer, Creator & Builder">
+<meta name="twitter:description" content="Open-source projects, apps, games, tools and experiments by HAZIK.">
+<meta name="twitter:image" content="https://hazik.in/icon.png">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Hazik Mir",
+  "alternateName": "HAZIK",
+  "url": "https://hazik.in/",
+  "image": "https://hazik.in/icon.png",
+  "sameAs": [
+    "https://github.com/Hazik-Mir"
+  ],
+  "jobTitle": "Developer and Creator",
+  "description": "Developer and creator building open-source apps, games, tools, libraries and experimental projects."
+}
+</script>
 
 <style>
 * {
@@ -41,6 +94,19 @@ nav {
   justify-content: space-between;
 }
 
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.logo-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  object-fit: cover;
+}
+
 .logo {
   font-size: 20px;
   font-weight: 800;
@@ -69,6 +135,15 @@ nav {
   padding: 90px 0 65px;
 }
 
+.hero-brand {
+  width: 74px;
+  height: 74px;
+  border-radius: 18px;
+  margin-bottom: 24px;
+  object-fit: cover;
+  border: 1px solid #30363d;
+}
+
 .hero h1 {
   margin: 0;
   font-size: clamp(52px, 9vw, 82px);
@@ -82,8 +157,15 @@ nav {
 .hero p {
   color: #8b949e;
   font-size: 18px;
+  line-height: 1.65;
   margin: 15px 0 25px;
-  max-width: 550px;
+  max-width: 600px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
 }
 
 .button {
@@ -99,6 +181,111 @@ nav {
 
 .button:hover {
   background: #2ea043;
+}
+
+.button.secondary {
+  background: #161b22;
+  border-color: #30363d;
+}
+
+.button.secondary:hover {
+  background: #21262d;
+}
+
+/* ABOUT */
+
+.about {
+  margin-bottom: 55px;
+}
+
+.about-card {
+  border: 1px solid #21262d;
+  border-radius: 8px;
+  padding: 22px;
+  background: #0d1117;
+}
+
+.about-card h2 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.about-card p {
+  color: #8b949e;
+  line-height: 1.7;
+  font-size: 14px;
+  margin: 0;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.info-box {
+  background: #161b22;
+  border: 1px solid #21262d;
+  border-radius: 7px;
+  padding: 14px;
+}
+
+.info-box strong {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.info-box span {
+  color: #8b949e;
+  font-size: 12px;
+}
+
+/* CONTRIBUTION */
+
+.contribute {
+  margin: 55px 0;
+}
+
+.contribute-card {
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 22px;
+  background: #161b22;
+}
+
+.contribute-card h2 {
+  margin: 0 0 9px;
+  font-size: 20px;
+}
+
+.contribute-card p {
+  margin: 0 0 17px;
+  color: #8b949e;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.contribute-links {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+.contribute-link {
+  display: inline-block;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: #58a6ff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.contribute-link:hover {
+  border-color: #58a6ff;
+  background: #0d1117;
 }
 
 /* PROJECTS */
@@ -124,6 +311,7 @@ nav {
   color: #8b949e;
   font-size: 13px;
   margin-bottom: 15px;
+  line-height: 1.5;
 }
 
 .credit-note b {
@@ -206,14 +394,15 @@ footer {
   font-size: 13px;
 }
 
-@media(max-width:600px) {
-  .hero {
-    padding-top: 65px;
-  }
+.footer-links {
+  margin-top: 7px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
 
-  .hero h1 {
-    letter-spacing: -3px;
-  }
+.footer-links a {
+  color: #58a6ff;
 }
 
 /* MODAL */
@@ -399,8 +588,6 @@ footer {
   flex-shrink: 0;
 }
 
-/* Platform tabs / download */
-
 .platform-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -440,10 +627,7 @@ footer {
   font-size: 12.5px;
   color: #a5d6ff;
   line-height: 1.6;
-}
-
-.cmd-box .comment {
-  color: #8b949e;
+  padding-right: 65px;
 }
 
 .copy-btn {
@@ -462,8 +646,6 @@ footer {
 .copy-btn:hover {
   border-color: #8b949e;
 }
-
-/* Releases / tags */
 
 .release-item {
   border: 1px solid #21262d;
@@ -523,8 +705,6 @@ footer {
   border-radius: 6px;
 }
 
-/* Contributors (bottom) */
-
 .contributors {
   display: flex;
   flex-wrap: wrap;
@@ -562,6 +742,27 @@ footer {
   color: #8b949e;
   font-size: 13px;
 }
+
+@media(max-width:600px) {
+
+  .hero {
+    padding-top: 65px;
+  }
+
+  .hero h1 {
+    letter-spacing: -3px;
+  }
+
+  .hero-brand {
+    width: 62px;
+    height: 62px;
+  }
+
+  .modal-body {
+    padding: 17px;
+  }
+
+}
 </style>
 </head>
 
@@ -570,14 +771,22 @@ footer {
 <nav>
   <div class="container nav">
 
-    <div class="logo">
-      HAZIK<span>.</span>
+    <div class="brand">
+      <img
+        class="logo-image"
+        src="icon.png"
+        alt="HAZIK logo">
+
+      <div class="logo">
+        HAZIK<span>.</span>
+      </div>
     </div>
 
     <a
       class="github"
       href="https://github.com/Hazik-Mir"
-      target="_blank">
+      target="_blank"
+      rel="noopener">
       GitHub ↗
     </a>
 
@@ -587,24 +796,89 @@ footer {
 
 <main class="container">
 
+  <!-- HERO -->
+
   <section class="hero">
+
+    <img
+      class="hero-brand"
+      src="icon.png"
+      alt="HAZIK">
 
     <h1>HAZIK<span>.</span></h1>
 
     <p>
       Developer, creator and builder.
-      I make apps, games, tools and random things.
+      I make apps, games, tools, libraries and random things
+      that I find interesting.
     </p>
 
-    <a
-      class="button"
-      href="https://github.com/Hazik-Mir"
-      target="_blank">
-      View GitHub
-    </a>
+    <div class="hero-actions">
+
+      <a
+        class="button"
+        href="https://github.com/Hazik-Mir"
+        target="_blank"
+        rel="noopener">
+        View GitHub
+      </a>
+
+      <a
+        class="button secondary"
+        href="#contribute">
+        Contribute
+      </a>
+
+    </div>
 
   </section>
 
+
+  <!-- ABOUT -->
+
+  <section class="about">
+
+    <div class="about-card">
+
+      <h2>About HAZIK</h2>
+
+      <p>
+        Welcome to my open-source space. This website collects my public
+        programming projects, experiments and developer tools in one place.
+        Everything is built to be explored, used, modified and improved
+        together with the community.
+      </p>
+
+      <div class="info-grid">
+
+        <div class="info-box">
+          <strong>Open Source</strong>
+          <span>Public projects available on GitHub</span>
+        </div>
+
+        <div class="info-box">
+          <strong>Developer Tools</strong>
+          <span>Libraries, utilities and useful experiments</span>
+        </div>
+
+        <div class="info-box">
+          <strong>Apps & Games</strong>
+          <span>Projects built across different platforms</span>
+        </div>
+
+        <div class="info-box">
+          <strong>Community</strong>
+          <span>Fork, improve and contribute to projects</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PROJECTS -->
 
   <section>
 
@@ -619,13 +893,57 @@ footer {
     </div>
 
     <div class="credit-note">
-      All projects below are open source. <b>Must credit Hazik before use.</b> Click any project for full details, releases and download commands.
+      All projects below are open source.
+      <b>Must credit Hazik before use.</b>
+      Click any project for full details, releases and download commands.
     </div>
 
     <div id="projects">
+
       <div class="empty">
         Loading projects...
       </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CONTRIBUTION -->
+
+  <section class="contribute" id="contribute">
+
+    <div class="contribute-card">
+
+      <h2>Want to contribute?</h2>
+
+      <p>
+        If you want to improve a project, fix a bug, add a feature or
+        experiment with the code, you're welcome to contribute.
+        Open a project on GitHub, fork it, make your changes and submit
+        a pull request.
+      </p>
+
+      <div class="contribute-links">
+
+        <a
+          class="contribute-link"
+          href="https://github.com/Hazik-Mir"
+          target="_blank"
+          rel="noopener">
+          Browse Projects →
+        </a>
+
+        <a
+          class="contribute-link"
+          href="https://github.com/Hazik-Mir?tab=repositories"
+          target="_blank"
+          rel="noopener">
+          Fork a Project →
+        </a>
+
+      </div>
+
     </div>
 
   </section>
@@ -634,41 +952,92 @@ footer {
 
 
 <footer>
+
   <div class="container">
+
     © 2026 HAZIK
+
+    <div class="footer-links">
+
+      <a
+        href="https://github.com/Hazik-Mir"
+        target="_blank"
+        rel="noopener">
+        GitHub
+      </a>
+
+      <a href="https://hazik.in/">
+        Website
+      </a>
+
+    </div>
+
   </div>
+
 </footer>
 
 
 <!-- PROJECT DETAIL MODAL -->
+
 <div class="modal-overlay" id="modal-overlay">
+
   <div class="modal">
 
     <div class="modal-header">
+
       <div>
-        <div class="modal-title" id="modal-title">Loading…</div>
-        <div class="modal-subtitle" id="modal-subtitle"></div>
+
+        <div
+          class="modal-title"
+          id="modal-title">
+          Loading…
+        </div>
+
+        <div
+          class="modal-subtitle"
+          id="modal-subtitle">
+        </div>
+
         <div class="modal-credit-badge">
           ⚠ Must credit hazik before use
         </div>
+
       </div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+
+      <button
+        class="modal-close"
+        onclick="closeModal()"
+        aria-label="Close">
+        ✕
+      </button>
+
     </div>
 
-    <div class="modal-body" id="modal-body">
-      <div class="modal-loading">Loading project details…</div>
+    <div
+      class="modal-body"
+      id="modal-body">
+
+      <div class="modal-loading">
+        Loading project details…
+      </div>
+
     </div>
 
   </div>
+
 </div>
 
 
 <script>
 
 const username = "Hazik-Mir";
+
 let currentRepo = null;
 let currentCommands = {};
 let activePlatform = "linux";
+
+
+/* ---------- LOAD PROJECTS ---------- */
 
 async function loadProjects() {
 
@@ -689,10 +1058,6 @@ async function loadProjects() {
 
     projects.innerHTML = "";
 
-    /*
-      Remove forks so the website mainly shows
-      projects you actually own.
-    */
     const ownRepos = repos.filter(repo => !repo.fork);
 
     if (ownRepos.length === 0) {
@@ -704,6 +1069,7 @@ async function loadProjects() {
       `;
 
       status.textContent = "0 projects";
+
       return;
     }
 
@@ -716,15 +1082,22 @@ async function loadProjects() {
 
       project.className = "project";
       project.type = "button";
-      project.addEventListener("click", () => openProject(repo));
+
+      project.addEventListener(
+        "click",
+        () => openProject(repo)
+      );
 
       const description =
-        repo.description || "No description provided.";
+        repo.description ||
+        "No description provided.";
 
       const language =
-        repo.language || "Code";
+        repo.language ||
+        "Code";
 
       project.innerHTML = `
+
         <div class="project-name">
           ${escapeHTML(repo.name)}
         </div>
@@ -752,6 +1125,7 @@ async function loadProjects() {
           </span>
 
         </div>
+
       `;
 
       projects.appendChild(project);
@@ -765,312 +1139,831 @@ async function loadProjects() {
     status.textContent = "Offline";
 
     projects.innerHTML = `
+
       <div class="empty">
+
         Couldn't load GitHub projects.
+
         <br><br>
+
         <a
           href="https://github.com/${username}"
           target="_blank"
+          rel="noopener"
           style="color:#58a6ff">
+
           Open GitHub instead →
+
         </a>
+
       </div>
+
     `;
+
   }
+
 }
 
 
-/* ---------- MODAL / PROJECT DETAILS ---------- */
+/* ---------- MODAL ---------- */
 
 async function openProject(repoStub) {
 
-  const overlay = document.getElementById("modal-overlay");
-  const body = document.getElementById("modal-body");
-  const title = document.getElementById("modal-title");
-  const subtitle = document.getElementById("modal-subtitle");
+  const overlay =
+    document.getElementById("modal-overlay");
+
+  const body =
+    document.getElementById("modal-body");
+
+  const title =
+    document.getElementById("modal-title");
+
+  const subtitle =
+    document.getElementById("modal-subtitle");
 
   currentRepo = repoStub;
 
   title.textContent = repoStub.name;
-  subtitle.textContent = "Fetching project details…";
-  body.innerHTML = `<div class="modal-loading">Loading project details…</div>`;
+
+  subtitle.textContent =
+    "Fetching project details…";
+
+  body.innerHTML =
+    `<div class="modal-loading">
+      Loading project details…
+    </div>`;
 
   overlay.classList.add("open");
+
   document.body.style.overflow = "hidden";
 
   try {
 
-    const [repoRes, releasesRes, tagsRes, contributorsRes] =
-      await Promise.allSettled([
-        fetch(`https://api.github.com/repos/${username}/${repoStub.name}`),
-        fetch(`https://api.github.com/repos/${username}/${repoStub.name}/releases?per_page=10`),
-        fetch(`https://api.github.com/repos/${username}/${repoStub.name}/tags?per_page=10`),
-        fetch(`https://api.github.com/repos/${username}/${repoStub.name}/contributors?per_page=15`)
-      ]);
+    const [
+      repoRes,
+      releasesRes,
+      tagsRes,
+      contributorsRes
+    ] = await Promise.allSettled([
 
-    const repo = repoRes.status === "fulfilled" && repoRes.value.ok
-      ? await repoRes.value.json()
-      : repoStub;
+      fetch(
+        `https://api.github.com/repos/${username}/${repoStub.name}`
+      ),
 
-    const releases = releasesRes.status === "fulfilled" && releasesRes.value.ok
-      ? await releasesRes.value.json()
-      : [];
+      fetch(
+        `https://api.github.com/repos/${username}/${repoStub.name}/releases?per_page=10`
+      ),
 
-    const tags = tagsRes.status === "fulfilled" && tagsRes.value.ok
-      ? await tagsRes.value.json()
-      : [];
+      fetch(
+        `https://api.github.com/repos/${username}/${repoStub.name}/tags?per_page=10`
+      ),
 
-    const contributors = contributorsRes.status === "fulfilled" && contributorsRes.value.ok
-      ? await contributorsRes.value.json()
-      : [];
+      fetch(
+        `https://api.github.com/repos/${username}/${repoStub.name}/contributors?per_page=15`
+      )
 
-    // packages best-effort, GitHub API often needs auth for this — fail silently
+    ]);
+
+
+    const repo =
+      repoRes.status === "fulfilled" &&
+      repoRes.value.ok
+
+        ? await repoRes.value.json()
+
+        : repoStub;
+
+
+    const releases =
+      releasesRes.status === "fulfilled" &&
+      releasesRes.value.ok
+
+        ? await releasesRes.value.json()
+
+        : [];
+
+
+    const tags =
+      tagsRes.status === "fulfilled" &&
+      tagsRes.value.ok
+
+        ? await tagsRes.value.json()
+
+        : [];
+
+
+    const contributors =
+      contributorsRes.status === "fulfilled" &&
+      contributorsRes.value.ok
+
+        ? await contributorsRes.value.json()
+
+        : [];
+
+
     let packages = [];
+
     try {
-      const pkgRes = await fetch(
-        `https://api.github.com/users/${username}/packages?package_type=container`
-      );
+
+      const pkgRes =
+        await fetch(
+          `https://api.github.com/users/${username}/packages?package_type=container`
+        );
+
       if (pkgRes.ok) {
-        const allPkgs = await pkgRes.json();
-        packages = Array.isArray(allPkgs)
-          ? allPkgs.filter(p => p.repository && p.repository.name === repo.name)
-          : [];
+
+        const allPkgs =
+          await pkgRes.json();
+
+        packages =
+          Array.isArray(allPkgs)
+
+            ? allPkgs.filter(
+                p =>
+                  p.repository &&
+                  p.repository.name === repo.name
+              )
+
+            : [];
+
       }
+
     } catch (e) {
+
       packages = [];
+
     }
 
-    renderModal(repo, releases, tags, contributors, packages);
+
+    renderModal(
+      repo,
+      releases,
+      tags,
+      contributors,
+      packages
+    );
 
   } catch (error) {
 
     console.error(error);
+
     body.innerHTML = `
+
       <div class="modal-section">
+
         <div class="muted-line">
+
           Couldn't load full details.
-          <a href="${repoStub.html_url}" target="_blank" style="color:#58a6ff">Open on GitHub instead →</a>
+
+          <a
+            href="${repoStub.html_url}"
+            target="_blank"
+            rel="noopener"
+            style="color:#58a6ff">
+
+            Open on GitHub instead →
+
+          </a>
+
         </div>
+
       </div>
+
     `;
+
   }
+
 }
+
 
 function closeModal() {
-  document.getElementById("modal-overlay").classList.remove("open");
+
+  document
+    .getElementById("modal-overlay")
+    .classList.remove("open");
+
   document.body.style.overflow = "";
+
 }
 
-document.getElementById("modal-overlay").addEventListener("click", (e) => {
-  if (e.target.id === "modal-overlay") closeModal();
-});
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeModal();
-});
+document
+  .getElementById("modal-overlay")
+  .addEventListener("click", e => {
+
+    if (
+      e.target.id ===
+      "modal-overlay"
+    ) {
+      closeModal();
+    }
+
+  });
 
 
-function renderModal(repo, releases, tags, contributors, packages) {
+document.addEventListener(
+  "keydown",
+  e => {
 
-  const title = document.getElementById("modal-title");
-  const subtitle = document.getElementById("modal-subtitle");
-  const body = document.getElementById("modal-body");
+    if (e.key === "Escape") {
+      closeModal();
+    }
 
-  title.textContent = repo.name;
-  subtitle.textContent = repo.description || "No description provided.";
+  }
+);
 
-  const cloneUrl = repo.clone_url || `https://github.com/${username}/${repo.name}.git`;
-  const branch = repo.default_branch || "main";
 
-  currentCommands = buildCommands(repo.name, cloneUrl, branch);
+/* ---------- RENDER MODAL ---------- */
 
-  // ----- stats -----
+function renderModal(
+  repo,
+  releases,
+  tags,
+  contributors,
+  packages
+) {
+
+  const title =
+    document.getElementById("modal-title");
+
+  const subtitle =
+    document.getElementById("modal-subtitle");
+
+  const body =
+    document.getElementById("modal-body");
+
+
+  title.textContent =
+    repo.name;
+
+  subtitle.textContent =
+    repo.description ||
+    "No description provided.";
+
+
+  const cloneUrl =
+    repo.clone_url ||
+    `https://github.com/${username}/${repo.name}.git`;
+
+  const branch =
+    repo.default_branch ||
+    "main";
+
+
+  currentCommands =
+    buildCommands(
+      repo.name,
+      cloneUrl,
+      branch
+    );
+
+
   const statsHTML = `
-    <div class="stat-grid">
-      <div class="stat-box"><div class="label">Language</div><div class="value">${escapeHTML(repo.language || "—")}</div></div>
-      <div class="stat-box"><div class="label">Stars</div><div class="value">★ ${repo.stargazers_count ?? 0}</div></div>
-      <div class="stat-box"><div class="label">Forks</div><div class="value">⑂ ${repo.forks_count ?? 0}</div></div>
-      <div class="stat-box"><div class="label">Open Issues</div><div class="value">${repo.open_issues_count ?? 0}</div></div>
-      <div class="stat-box"><div class="label">Watchers</div><div class="value">${repo.watchers_count ?? 0}</div></div>
-      <div class="stat-box"><div class="label">License</div><div class="value">${escapeHTML(repo.license?.spdx_id || repo.license?.name || "None")}</div></div>
-      <div class="stat-box"><div class="label">Default Branch</div><div class="value">${escapeHTML(branch)}</div></div>
-      <div class="stat-box"><div class="label">Size</div><div class="value">${formatSize(repo.size)}</div></div>
-      <div class="stat-box"><div class="label">Created</div><div class="value">${formatDate(repo.created_at)}</div></div>
-      <div class="stat-box"><div class="label">Last Push</div><div class="value">${timeAgo(repo.pushed_at)}</div></div>
-    </div>
-  `;
 
-  // ----- topics -----
-  const topics = repo.topics && repo.topics.length
-    ? `
-      <div class="modal-section">
-        <h3>Topics</h3>
-        <div class="topics">
-          ${repo.topics.map(t => `<span class="topic-tag">${escapeHTML(t)}</span>`).join("")}
+    <div class="stat-grid">
+
+      <div class="stat-box">
+        <div class="label">Language</div>
+        <div class="value">
+          ${escapeHTML(repo.language || "—")}
         </div>
       </div>
-    `
-    : "";
 
-  // ----- links -----
+      <div class="stat-box">
+        <div class="label">Stars</div>
+        <div class="value">
+          ★ ${repo.stargazers_count ?? 0}
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="label">Forks</div>
+        <div class="value">
+          ⑂ ${repo.forks_count ?? 0}
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="label">Open Issues</div>
+        <div class="value">
+          ${repo.open_issues_count ?? 0}
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="label">Watchers</div>
+        <div class="value">
+          ${repo.watchers_count ?? 0}
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="label">License</div>
+        <div class="value">
+          ${escapeHTML(
+            repo.license?.spdx_id ||
+            repo.license?.name ||
+            "None"
+          )}
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="label">Default Branch</div>
+        <div class="value">
+          ${escapeHTML(branch)}
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="label">Size</div>
+        <div class="value">
+          ${formatSize(repo.size)}
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="label">Created</div>
+        <div class="value">
+          ${formatDate(repo.created_at)}
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="label">Last Push</div>
+        <div class="value">
+          ${timeAgo(repo.pushed_at)}
+        </div>
+      </div>
+
+    </div>
+
+  `;
+
+
+  const topics =
+    repo.topics &&
+    repo.topics.length
+
+      ? `
+
+        <div class="modal-section">
+
+          <h3>Topics</h3>
+
+          <div class="topics">
+
+            ${repo.topics
+              .map(
+                t =>
+                  `<span class="topic-tag">
+                    ${escapeHTML(t)}
+                  </span>`
+              )
+              .join("")}
+
+          </div>
+
+        </div>
+
+      `
+
+      : "";
+
+
   const linkRows = [];
 
+
   linkRows.push(`
-    <a class="link-row" href="${repo.html_url}" target="_blank">
-      <span class="tag">Repo</span> GitHub — ${escapeHTML(repo.full_name || repo.name)}
+
+    <a
+      class="link-row"
+      href="${repo.html_url}"
+      target="_blank"
+      rel="noopener">
+
+      <span class="tag">
+        Repo
+      </span>
+
+      GitHub —
+      ${escapeHTML(
+        repo.full_name ||
+        repo.name
+      )}
+
     </a>
+
   `);
+
 
   if (repo.homepage) {
+
     linkRows.push(`
-      <a class="link-row" href="${repo.homepage}" target="_blank">
-        <span class="tag">Website</span> ${escapeHTML(repo.homepage)}
+
+      <a
+        class="link-row"
+        href="${repo.homepage}"
+        target="_blank"
+        rel="noopener">
+
+        <span class="tag">
+          Website
+        </span>
+
+        ${escapeHTML(repo.homepage)}
+
       </a>
+
     `);
+
   }
+
 
   linkRows.push(`
-    <a class="link-row" href="${repo.html_url}/issues" target="_blank">
-      <span class="tag">Issues</span> Report an issue
+
+    <a
+      class="link-row"
+      href="${repo.html_url}/issues"
+      target="_blank"
+      rel="noopener">
+
+      <span class="tag">
+        Issues
+      </span>
+
+      Report an issue
+
     </a>
+
   `);
 
+
   const linksHTML = `
+
     <div class="modal-section">
+
       <h3>Links</h3>
+
       <div class="links-list">
+
         ${linkRows.join("")}
+
       </div>
+
     </div>
+
   `;
 
-  // ----- download / clone -----
+
   const downloadHTML = `
+
     <div class="modal-section">
+
       <h3>Download / Clone</h3>
-      <div class="platform-tabs" id="platform-tabs">
-        ${["windows", "linux", "mac", "android", "other"].map(p => `
-          <button
-            class="platform-tab ${p === activePlatform ? "active" : ""}"
-            data-platform="${p}"
-            onclick="setPlatform('${p}')">
-            ${platformLabel(p)}
-          </button>
-        `).join("")}
+
+      <div class="platform-tabs">
+
+        ${[
+          "windows",
+          "linux",
+          "mac",
+          "android",
+          "other"
+        ]
+          .map(
+            p => `
+
+              <button
+                class="platform-tab ${
+                  p === activePlatform
+                    ? "active"
+                    : ""
+                }"
+                data-platform="${p}"
+                onclick="setPlatform('${p}')">
+
+                ${platformLabel(p)}
+
+              </button>
+
+            `
+          )
+          .join("")}
+
       </div>
+
+
       <div class="cmd-box">
-        <button class="copy-btn" onclick="copyCommand()">Copy</button>
+
+        <button
+          class="copy-btn"
+          onclick="copyCommand()">
+
+          Copy
+
+        </button>
+
         <pre id="cmd-output"></pre>
+
       </div>
+
     </div>
+
   `;
 
-  // ----- releases / tags -----
+
   let releasesHTML = "";
 
-  if (releases && releases.length) {
+
+  if (
+    releases &&
+    releases.length
+  ) {
+
     releasesHTML = `
+
       <div class="modal-section">
+
         <h3>Releases</h3>
-        ${releases.map(r => `
-          <div class="release-item">
-            <div class="release-top">
-              <span class="release-name">${escapeHTML(r.name || r.tag_name)}</span>
-              <span class="release-date">${formatDate(r.published_at)}</span>
-            </div>
-            <a class="release-dl" href="${r.zipball_url || r.html_url}" target="_blank">
-              ⬇ Download ${escapeHTML(r.tag_name)} (zip)
-            </a>
-          </div>
-        `).join("")}
+
+        ${releases
+          .map(
+            r => `
+
+              <div class="release-item">
+
+                <div class="release-top">
+
+                  <span class="release-name">
+                    ${escapeHTML(
+                      r.name ||
+                      r.tag_name
+                    )}
+                  </span>
+
+                  <span class="release-date">
+                    ${formatDate(
+                      r.published_at
+                    )}
+                  </span>
+
+                </div>
+
+                <a
+                  class="release-dl"
+                  href="${
+                    r.zipball_url ||
+                    r.html_url
+                  }"
+                  target="_blank"
+                  rel="noopener">
+
+                  ⬇ Download
+                  ${escapeHTML(
+                    r.tag_name
+                  )}
+                  (zip)
+
+                </a>
+
+              </div>
+
+            `
+          )
+          .join("")}
+
       </div>
+
     `;
-  } else if (tags && tags.length) {
+
+  } else if (
+    tags &&
+    tags.length
+  ) {
+
     releasesHTML = `
+
       <div class="modal-section">
+
         <h3>Versions / Tags</h3>
+
         <div class="tag-pill-row">
-          ${tags.map(t => `
-            <a class="tag-pill" href="${t.zipball_url}" target="_blank">${escapeHTML(t.name)}</a>
-          `).join("")}
+
+          ${tags
+            .map(
+              t => `
+
+                <a
+                  class="tag-pill"
+                  href="${t.zipball_url}"
+                  target="_blank"
+                  rel="noopener">
+
+                  ${escapeHTML(t.name)}
+
+                </a>
+
+              `
+            )
+            .join("")}
+
         </div>
+
       </div>
+
     `;
+
   } else {
+
     releasesHTML = `
+
       <div class="modal-section">
+
         <h3>Releases / Versions</h3>
-        <div class="muted-line">No releases or tags published yet.</div>
+
+        <div class="muted-line">
+          No releases or tags published yet.
+        </div>
+
       </div>
+
     `;
+
   }
 
-  // ----- packages -----
+
   const packagesHTML = `
+
     <div class="modal-section">
+
       <h3>Packages</h3>
+
       ${
-        packages && packages.length
-          ? `<div class="links-list">
-              ${packages.map(p => `
-                <a class="link-row" href="${p.html_url}" target="_blank">
-                  <span class="tag">${escapeHTML(p.package_type || "Package")}</span> ${escapeHTML(p.name)}
-                </a>
-              `).join("")}
-            </div>`
-          : `<div class="muted-line">No packages published for this project.</div>`
+        packages &&
+        packages.length
+
+          ? `
+
+            <div class="links-list">
+
+              ${packages
+                .map(
+                  p => `
+
+                    <a
+                      class="link-row"
+                      href="${p.html_url}"
+                      target="_blank"
+                      rel="noopener">
+
+                      <span class="tag">
+                        ${escapeHTML(
+                          p.package_type ||
+                          "Package"
+                        )}
+                      </span>
+
+                      ${escapeHTML(p.name)}
+
+                    </a>
+
+                  `
+                )
+                .join("")}
+
+            </div>
+
+          `
+
+          : `
+
+            <div class="muted-line">
+              No packages published for this project.
+            </div>
+
+          `
       }
+
     </div>
+
   `;
 
-  // ----- contributors (bottom) -----
+
   const contributorsHTML = `
+
     <div class="modal-section">
+
       <h3>Contributors</h3>
+
       ${
-        contributors && contributors.length
-          ? `<div class="contributors">
-              ${contributors.map(c => `
-                <a class="contributor" href="${c.html_url}" target="_blank">
-                  <img src="${c.avatar_url}" alt="${escapeHTML(c.login)}">
-                  ${escapeHTML(c.login)}
-                  <span class="count">${c.contributions} commits</span>
-                </a>
-              `).join("")}
-            </div>`
-          : `<div class="muted-line">No contributor data available.</div>`
+        contributors &&
+        contributors.length
+
+          ? `
+
+            <div class="contributors">
+
+              ${contributors
+                .map(
+                  c => `
+
+                    <a
+                      class="contributor"
+                      href="${c.html_url}"
+                      target="_blank"
+                      rel="noopener">
+
+                      <img
+                        src="${c.avatar_url}"
+                        alt="${escapeHTML(c.login)}">
+
+                      ${escapeHTML(c.login)}
+
+                      <span class="count">
+                        ${c.contributions}
+                        commits
+                      </span>
+
+                    </a>
+
+                  `
+                )
+                .join("")}
+
+            </div>
+
+          `
+
+          : `
+
+            <div class="muted-line">
+              No contributor data available.
+            </div>
+
+          `
       }
+
     </div>
+
   `;
+
 
   body.innerHTML =
-    `<div class="modal-section">${statsHTML}</div>` +
+    `<div class="modal-section">
+      ${statsHTML}
+    </div>` +
+
     topics +
+
     linksHTML +
+
     downloadHTML +
+
     releasesHTML +
+
     packagesHTML +
+
     contributorsHTML;
 
+
   renderCommand();
+
 }
 
+
+/* ---------- PLATFORM ---------- */
+
 function platformLabel(p) {
+
   return {
+
     windows: "Windows",
     linux: "Linux",
     mac: "macOS",
     android: "Android",
     other: "Other"
+
   }[p];
+
 }
 
-function buildCommands(name, cloneUrl, branch) {
 
-  const creditLineHash = `# Credit: Hazik (https://hazik.in) — Must credit Hazik before use`;
-  const creditLineRem = `:: Credit: Hazik (https://hazik.in) — Must credit Hazik before use`;
+function buildCommands(
+  name,
+  cloneUrl,
+  branch
+) {
+
+  const creditLineHash =
+    `# Credit: Hazik (https://hazik.in) — Must credit Hazik before use`;
+
+  const creditLineRem =
+    `:: Credit: Hazik (https://hazik.in) — Must credit Hazik before use`;
+
 
   return {
+
     windows:
 `${creditLineRem}
 git clone ${cloneUrl}
@@ -1096,96 +1989,184 @@ cd ${name}`,
 `${creditLineHash}
 curl -L -o ${name}.zip ${cloneUrl.replace(/\.git$/, "")}/archive/refs/heads/${branch}.zip
 unzip ${name}.zip`
+
   };
+
 }
+
 
 function setPlatform(p) {
+
   activePlatform = p;
 
-  document.querySelectorAll(".platform-tab").forEach(btn => {
-    btn.classList.toggle("active", btn.dataset.platform === p);
-  });
+  document
+    .querySelectorAll(".platform-tab")
+    .forEach(btn => {
+
+      btn.classList.toggle(
+        "active",
+        btn.dataset.platform === p
+      );
+
+    });
 
   renderCommand();
+
 }
+
 
 function renderCommand() {
-  const output = document.getElementById("cmd-output");
-  if (!output || !currentCommands[activePlatform]) return;
-  output.textContent = currentCommands[activePlatform];
+
+  const output =
+    document.getElementById(
+      "cmd-output"
+    );
+
+  if (
+    !output ||
+    !currentCommands[activePlatform]
+  ) return;
+
+  output.textContent =
+    currentCommands[activePlatform];
+
 }
 
+
 function copyCommand() {
-  const text = currentCommands[activePlatform] || "";
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.querySelector(".copy-btn");
-    const original = btn.textContent;
-    btn.textContent = "Copied!";
-    setTimeout(() => btn.textContent = original, 1500);
-  });
+
+  const text =
+    currentCommands[activePlatform] ||
+    "";
+
+  navigator.clipboard
+    .writeText(text)
+    .then(() => {
+
+      const btn =
+        document.querySelector(
+          ".copy-btn"
+        );
+
+      const original =
+        btn.textContent;
+
+      btn.textContent =
+        "Copied!";
+
+      setTimeout(
+        () =>
+          btn.textContent =
+            original,
+        1500
+      );
+
+    });
+
 }
 
 
 /* ---------- HELPERS ---------- */
 
 function formatDate(date) {
-  if (!date) return "—";
-  return new Date(date).toLocaleDateString(undefined, {
-    year: "numeric", month: "short", day: "numeric"
-  });
+
+  if (!date)
+    return "—";
+
+  return new Date(date)
+    .toLocaleDateString(
+      undefined,
+      {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+      }
+    );
+
 }
 
+
 function formatSize(kb) {
-  if (!kb && kb !== 0) return "—";
-  if (kb < 1024) return `${kb} KB`;
-  return `${(kb / 1024).toFixed(1)} MB`;
+
+  if (!kb && kb !== 0)
+    return "—";
+
+  if (kb < 1024)
+    return `${kb} KB`;
+
+  return `${(
+    kb / 1024
+  ).toFixed(1)} MB`;
+
 }
+
 
 function timeAgo(date) {
 
   const seconds =
     Math.floor(
-      (Date.now() - new Date(date).getTime()) / 1000
+      (
+        Date.now() -
+        new Date(date).getTime()
+      ) / 1000
     );
+
 
   if (seconds < 60)
     return "just now";
 
+
   const minutes =
     Math.floor(seconds / 60);
+
 
   if (minutes < 60)
     return `${minutes}m ago`;
 
+
   const hours =
     Math.floor(minutes / 60);
+
 
   if (hours < 24)
     return `${hours}h ago`;
 
+
   const days =
     Math.floor(hours / 24);
+
 
   if (days < 30)
     return `${days}d ago`;
 
+
   const months =
     Math.floor(days / 30);
+
 
   if (months < 12)
     return `${months}mo ago`;
 
-  return `${Math.floor(months / 12)}y ago`;
+
+  return `${Math.floor(
+    months / 12
+  )}y ago`;
+
 }
 
 
 function escapeHTML(text) {
 
-  const div = document.createElement("div");
+  const div =
+    document.createElement(
+      "div"
+    );
 
-  div.textContent = text;
+  div.textContent =
+    text;
 
   return div.innerHTML;
+
 }
 
 
@@ -1194,4 +2175,4 @@ loadProjects();
 </script>
 
 </body>
-</html>
+  </html>
