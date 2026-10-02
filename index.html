@@ -61,7 +61,7 @@
 </script>
 
 <!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3421766795441970"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3421766795441970" onerror="window.__adErr=1"
      crossorigin="anonymous"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -274,7 +274,7 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
       <div><dt>Last added</dt><dd id="fact-updated">…</dd></div>
     </dl>
     <div class="viz"><h3>Projects by category</h3><div id="viz"><span class="muted-line">Loading…</span></div></div>
-    <div class="rule-note"><b>Credit required.</b> You can use any project here, but you must credit Hazik (hazik.in).</div>
+    <div class="rule-note"><b>Please avoid ad blockers.</b> Ads are the main way this website keeps running. We provide these files and assets for free.</div>
   </aside>
 
   <main>
@@ -315,7 +315,7 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
       <div>
         <div class="modal-title" id="modal-title">Loading…</div>
         <div class="modal-subtitle" id="modal-subtitle"></div>
-        <div class="modal-credit-badge">Credit Hazik if you use this project</div>
+        <div class="modal-credit-badge">Free to download. Ads keep this site running.</div>
       </div>
       <button class="modal-close" id="modal-close" type="button" aria-label="Close">✕</button>
     </div>
@@ -335,6 +335,15 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
       <button class="button secondary" id="g-x" type="button" style="margin-top:14px">Cancel</button>
     </div>
   </div>
+</div>
+
+<div id="adbait" class="adsbox ad-banner ads advert pub_300x250" style="position:absolute;left:-9999px;top:0;width:10px;height:10px" aria-hidden="true">&nbsp;</div>
+<div class="modal-overlay" id="adblock" style="z-index:300;background:rgba(8,10,16,.94)" role="alertdialog" aria-modal="true" aria-labelledby="ab-t">
+  <div class="modal" style="max-width:480px"><div class="gate">
+    <div class="modal-title" id="ab-t" style="font-size:22px">Please turn off your ad blocker</div>
+    <p class="muted-line" style="margin:12px 0 18px">We provide these files and assets for free. Ads are the main way this website keeps running. Please remove your ad blocker for this site, then reload.</p>
+    <button class="button" type="button" onclick="location.reload()">I turned it off, reload</button>
+  </div></div>
 </div>
 
 <!-- UPLOAD PAGE (hazik.in/upload) -->
@@ -368,12 +377,13 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
 </div>
 
 <script>
-const SB="https://zfgslsbpdampqznvtpmq.supabase.co", ANON="YOUR_SUPABASE_ANON_KEY", WAIT=20;
+const SB="https://zfgslsbpdampqznvtpmq.supabase.co", ANON="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpmZ3Nsc2JwZGFtcHF6bnZ0cG1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5MjYyNzIsImV4cCI6MjEwNjUwMjI3Mn0.m878T3kDCGjxAhckxNGR1pyPDQCnFNQhsTlFHiBufMU", WAIT=20;
 const H=ANON.startsWith("eyJ")?{apikey:ANON,Authorization:"Bearer "+ANON}:{apikey:ANON};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safe=u=>/^https?:\/\//i.test(u||"")?u:"";
 const rpc=(fn,b)=>fetch(`${SB}/rest/v1/rpc/${fn}`,{method:"POST",headers:{...H,"Content-Type":"application/json"},body:JSON.stringify(b)});
+const NOKEY=ANON.startsWith("YOUR_");
 const isUp=/\/upload\/?$/i.test(location.pathname)||location.hash==="#upload"||location.search==="?upload";
 
 (function(){const r=document.documentElement;try{const t=localStorage.getItem("theme");if(t)r.dataset.theme=t}catch(e){}
@@ -381,11 +391,12 @@ $("theme-btn").addEventListener("click",()=>{const d=r.dataset.theme?r.dataset.t
 
 if(isUp){
 /* ================= UPLOAD PAGE ================= */
-$("home").hidden=true;document.querySelector("footer").hidden=true;$("modal-overlay").remove();$("gate").remove();$("up").hidden=false;
+$("home").hidden=true;document.querySelector("footer").hidden=true;$("modal-overlay").remove();$("gate").remove();$("adblock").remove();$("adbait").remove();$("up").hidden=false;
 document.title="Upload — HAZIK";$("robots").content="noindex, nofollow";
 let KEY="";
 async function unlock(){
   const k=$("k").value.replace(/\s/g,"");$("k-msg").textContent="";
+  if(NOKEY){$("k-msg").textContent="The Supabase anon key is not set in index.html yet.";return}
   try{const r=await rpc("check_key",{p_key:k});const j=await r.json().catch(()=>null);
     if(r.ok&&j===true){KEY=k;$("lock").hidden=true;$("app").hidden=false;addRow();refresh()}
     else if(r.ok)$("k-msg").textContent="Wrong key.";
@@ -442,7 +453,7 @@ async function load(){
     if(!r.ok)throw 0;all=await r.json();got=true;show();
   }catch(e){}
   if(!got){$("status").textContent="Offline";$("chips").style.display="none";$("viz").textContent="—";
-    $("projects").innerHTML='<div class="empty">Couldn\'t load projects. Check your internet and refresh.</div>'}
+    $("projects").innerHTML=`<div class="empty">${NOKEY?"The Supabase anon key is not set in index.html yet.":"Could not load projects. Check your internet and refresh."}</div>`}
 }
 function show(){facts();chips();list()}
 function facts(){
@@ -507,6 +518,13 @@ $("g-x").onclick=()=>{clearInterval(timer);$("gate").classList.remove("open")};
 
 try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch(e){}
 load();
+
+/* ad blocker check: bait element hidden, ad script blocked, or ad script never loaded */
+let late=false;
+function blocked(){const b=$("adbait"),c=getComputedStyle(b);
+  return !!window.__adErr||!b.offsetHeight||c.display==="none"||c.visibility==="hidden"||(late&&!(window.adsbygoogle&&window.adsbygoogle.loaded))}
+function checkAds(){if(blocked()){$("adblock").classList.add("open");document.body.style.overflow="hidden"}}
+addEventListener("load",()=>{setTimeout(checkAds,1500);setTimeout(()=>{late=true;checkAds()},6000)});
 }
 </script>
 </body>
