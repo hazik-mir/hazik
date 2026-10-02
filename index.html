@@ -20,8 +20,8 @@
 <link rel="canonical" href="https://hazik.in/">
 
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="icon.png">
-<link rel="apple-touch-icon" href="icon.png">
+<link rel="icon" type="image/png" href="/icon.png">
+<link rel="apple-touch-icon" href="/icon.png">
 
 <!-- Theme -->
 <meta name="theme-color" content="#f4f5f7" media="(prefers-color-scheme: light)">
@@ -259,7 +259,7 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
 <div class="wrap shell" id="home">
   <aside class="side">
     <div class="brandrow">
-      <img class="logo-image" src="icon.png" alt="HAZIK logo" width="56" height="56">
+      <img class="logo-image" src="/icon.png" alt="HAZIK logo" width="56" height="56">
       <button class="theme-btn" id="theme-btn" type="button" aria-label="Switch theme">◐</button>
     </div>
     <h1>HAZIK</h1>
@@ -274,7 +274,7 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
       <div><dt>Last added</dt><dd id="fact-updated">…</dd></div>
     </dl>
     <div class="viz"><h3>Projects by category</h3><div id="viz"><span class="muted-line">Loading…</span></div></div>
-    <div class="rule-note"><b>Credit required.</b> You can use any project here, but you must credit Hazik (hazik.in).</div>
+    <div class="rule-note"><b>Thanks For Choosing US</b> You can download any file from here for free.</div>
   </aside>
 
   <main>
@@ -368,13 +368,13 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
 </div>
 
 <script>
-const SB="https://zfgslsbpdampqznvtpmq.supabase.co", ANON="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpmZ3Nsc2JwZGFtcHF6bnZ0cG1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5MjYyNzIsImV4cCI6MjEwNjUwMjI3Mn0.m878T3kDCGjxAhckxNGR1pyPDQCnFNQhsTlFHiBufMU", WAIT=20;
-const H={apikey:ANON,Authorization:"Bearer "+ANON};
+const SB="https://zfgslsbpdampqznvtpmq.supabase.co", ANON="YOUR_SUPABASE_ANON_KEY", WAIT=20;
+const H=ANON.startsWith("eyJ")?{apikey:ANON,Authorization:"Bearer "+ANON}:{apikey:ANON};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safe=u=>/^https?:\/\//i.test(u||"")?u:"";
 const rpc=(fn,b)=>fetch(`${SB}/rest/v1/rpc/${fn}`,{method:"POST",headers:{...H,"Content-Type":"application/json"},body:JSON.stringify(b)});
-const isUp=/\/upload\/?$/.test(location.pathname)||location.hash==="#upload"||location.search==="?upload";
+const isUp=/\/upload\/?$/i.test(location.pathname)||location.hash==="#upload"||location.search==="?upload";
 
 (function(){const r=document.documentElement;try{const t=localStorage.getItem("theme");if(t)r.dataset.theme=t}catch(e){}
 $("theme-btn").addEventListener("click",()=>{const d=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=d?"light":"dark";try{localStorage.setItem("theme",r.dataset.theme)}catch(e){}})})();
@@ -385,10 +385,11 @@ $("home").hidden=true;document.querySelector("footer").hidden=true;$("modal-over
 document.title="Upload — HAZIK";$("robots").content="noindex, nofollow";
 let KEY="";
 async function unlock(){
-  const k=$("k").value;$("k-msg").textContent="";
-  try{const r=await rpc("check_key",{p_key:k});
-    if(r.ok&&(await r.json())===true){KEY=k;$("lock").hidden=true;$("app").hidden=false;addRow();refresh()}
-    else $("k-msg").textContent="Wrong key.";
+  const k=$("k").value.replace(/\s/g,"");$("k-msg").textContent="";
+  try{const r=await rpc("check_key",{p_key:k});const j=await r.json().catch(()=>null);
+    if(r.ok&&j===true){KEY=k;$("lock").hidden=true;$("app").hidden=false;addRow();refresh()}
+    else if(r.ok)$("k-msg").textContent="Wrong key.";
+    else $("k-msg").textContent=`Server error ${r.status}: ${(j&&(j.message||j.hint))||"check your anon key and the SQL setup"}`;
   }catch(e){$("k-msg").textContent="Could not reach the server. Try again."}
 }
 $("k-go").onclick=unlock;$("k").onkeydown=e=>{if(e.key==="Enter")unlock()};
@@ -501,3 +502,4 @@ load();
 }
 </script>
 </body>
+</html>
