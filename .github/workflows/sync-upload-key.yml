@@ -8,4 +8,6 @@ jobs:
         env:
           DB_URL: ${{ secrets.SUPABASE_DB_URL }}
           UPLOAD_KEY: ${{ secrets.UPLOAD_KEY }}
-        run: echo "select set_upload_key(:'k');" | psql "$DB_URL" -v k="$UPLOAD_KEY"
+        run: |
+          K=$(printf '%s' "$UPLOAD_KEY" | tr -d '[:space:]')
+          echo "select set_upload_key(:'k');" | psql "$DB_URL" -v k="$K"
