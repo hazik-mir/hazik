@@ -1,0 +1,11 @@
+name: Sync upload key
+on: workflow_dispatch   # run manually after changing the UPLOAD_KEY secret
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Save key (hashed) in Supabase
+        env:
+          DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+          UPLOAD_KEY: ${{ secrets.UPLOAD_KEY }}
+        run: echo "select set_upload_key(:'k');" | psql "$DB_URL" -v k="$UPLOAD_KEY"
