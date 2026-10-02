@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>404 — HAZIK</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="icon" type="image/png" href="icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f4f5f7;
+      --surface:#ffffff;
+      --sunk:#eceef2;
+      --ink:#14171f;
+      --muted:#5b6272;
+      --line:#dcdfe6;
+      --accent:#2f45e8;
+      --accent-ink:#ffffff;
+
+      --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+      --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+      --mono:"IBM Plex Mono",ui-monospace,Consolas,Menlo,monospace;
+    }
+
+    @media (prefers-color-scheme:dark){
+      :root:not([data-theme="light"]){
+        --bg:#0e1118;
+        --surface:#151923;
+        --sunk:#1b2030;
+        --ink:#e9ebf2;
+        --muted:#9097a8;
+        --line:#262c3d;
+        --accent:#8b9aff;
+        --accent-ink:#0e1118;
+      }
+    }
+
+    :root[data-theme="dark"]{
+      --bg:#0e1118;
+      --surface:#151923;
+      --sunk:#1b2030;
+      --ink:#e9ebf2;
+      --muted:#9097a8;
+      --line:#262c3d;
+      --accent:#8b9aff;
+      --accent-ink:#0e1118;
+    }
+
+    :root[data-theme="light"]{
+      color-scheme:light;
+    }
+
+    :root[data-theme="dark"]{
+      color-scheme:dark;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html{
+      min-height:100%;
+      color-scheme:light dark;
+    }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      background:var(--bg);
+      color:var(--ink);
+      font:400 15px/1.6 var(--body);
+      -webkit-font-smoothing:antialiased;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .page{
+      width:min(720px,calc(100% - 40px));
+      text-align:center;
+      padding:40px 0;
+    }
+
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:40px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font:800 22px/1 var(--display);
+      letter-spacing:-.02em;
+    }
+
+    .logo{
+      width:42px;
+      height:42px;
+      border-radius:11px;
+      object-fit:cover;
+      border:1px solid var(--line);
+      background:var(--surface);
+    }
+
+    .theme-btn{
+      width:36px;
+      height:36px;
+      border:1px solid var(--line);
+      background:var(--surface);
+      color:var(--ink);
+      border-radius:10px;
+      cursor:pointer;
+      font-size:16px;
+    }
+
+    .theme-btn:hover{
+      border-color:var(--muted);
+    }
+
+    .card{
+      background:var(--surface);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:34px 28px 30px;
+      box-shadow:0 8px 30px rgba(0,0,0,.03);
+    }
+
+    .animation{
+      width:min(330px,80vw);
+      height:240px;
+      margin:0 auto 8px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .animation iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+    }
+
+    .code{
+      display:inline-block;
+      margin-top:8px;
+      padding:5px 10px;
+      border-radius:7px;
+      background:var(--sunk);
+      color:var(--muted);
+      font:500 12px var(--mono);
+    }
+
+    h1{
+      font:800 clamp(42px,8vw,64px)/.95 var(--display);
+      letter-spacing:-.04em;
+      margin:18px 0 12px;
+    }
+
+    .message{
+      color:var(--muted);
+      max-width:44ch;
+      margin:0 auto 24px;
+      font-size:15px;
+    }
+
+    .actions{
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .button{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--accent);
+      color:var(--accent-ink);
+      border:1px solid var(--accent);
+      padding:9px 16px;
+      border-radius:9px;
+      font-weight:600;
+      font-size:14px;
+      cursor:pointer;
+      text-decoration:none;
+      transition:filter .15s;
+    }
+
+    .button:hover{
+      filter:brightness(1.1);
+    }
+
+    .button.secondary{
+      background:transparent;
+      color:var(--ink);
+      border-color:var(--line);
+    }
+
+    .button.secondary:hover{
+      border-color:var(--muted);
+      filter:none;
+    }
+
+    footer{
+      margin-top:28px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    @media(max-width:600px){
+      .page{
+        width:min(100% - 24px,720px);
+        padding:24px 0;
+      }
+
+      .top{
+        margin-bottom:24px;
+      }
+
+      .card{
+        padding:24px 16px 26px;
+      }
+
+      .animation{
+        height:210px;
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{
+        animation:none!important;
+        transition:none!important;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <main class="page">
+
+```
+<div class="top">
+  <div class="brand">
+    <img class="logo" src="icon.png" alt="HAZIK">
+    HAZIK
+  </div>
+
+  <button
+    class="theme-btn"
+    id="theme-btn"
+    type="button"
+    aria-label="Switch theme"
+  >◐</button>
+</div>
+
+<section class="card">
+
+  <div class="animation">
+    <iframe
+      src="https://lottie.host/embed/847d682d-7e86-48a0-8f27-184242034fa1/jtLjjNqOC7.lottie"
+      title="404 animation"
+      loading="eager">
+    </iframe>
+  </div>
+
+  <span class="code">ERROR 404</span>
+
+  <h1>Page not found.</h1>
+
+  <p class="message">
+    The page you're looking for doesn't exist, was moved,
+    or the link may be incorrect.
+  </p>
+
+  <div class="actions">
+    <a class="button" href="/">Back to Home</a>
+    <button class="button secondary" onclick="history.back()">
+      Go Back
+    </button>
+  </div>
+
+</section>
+
+<footer>
+  © 2026 HAZIK
+</footer>
+```
+
+  </main>
+
+  <script>
+    const root = document.documentElement;
+    const btn = document.getElementById("theme-btn");
+
+    try {
+      const saved = localStorage.getItem("theme");
+      if (saved) root.dataset.theme = saved;
+    } catch(e) {}
+
+    btn.addEventListener("click", () => {
+      const dark = root.dataset.theme
+        ? root.dataset.theme === "dark"
+        : matchMedia("(prefers-color-scheme: dark)").matches;
+
+      root.dataset.theme = dark ? "light" : "dark";
+
+      try {
+        localStorage.setItem("theme", root.dataset.theme);
+      } catch(e) {}
+    });
+  </script>
+
+</body>
+</html>
