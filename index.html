@@ -274,7 +274,7 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
       <div><dt>Last added</dt><dd id="fact-updated">…</dd></div>
     </dl>
     <div class="viz"><h3>Projects by category</h3><div id="viz"><span class="muted-line">Loading…</span></div></div>
-    <div class="rule-note"><b>Thanks For Choosing US</b> You can download any file from here for free.</div>
+    <div class="rule-note"><b>Credit required.</b> You can use any project here, but you must credit Hazik (hazik.in).</div>
   </aside>
 
   <main>
@@ -358,7 +358,7 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
       <button class="button secondary" id="add" type="button">+ Add link</button>
       <label for="cr">Credits</label><input id="cr">
       <label for="cat">Category</label><input id="cat" list="cats"><datalist id="cats"></datalist>
-      <label for="type">Type</label><input id="type" list="types"><datalist id="types"><option>App</option><option>Game</option><option>Tool</option><option>Library</option><option>Website</option></datalist>
+      <label for="type">Type</label><input id="type" list="types"><datalist id="types"><option>App</option><option>Game</option><option>Tool</option><option>Library</option><option>Website</option><option>Assets</option></datalist>
       <label for="yt">YouTube video (link)</label><input id="yt" type="url" placeholder="https://youtube.com/watch?v=…">
       <p id="msg" style="margin:14px 0"></p>
       <button class="button" id="send" type="button">Upload project</button>
@@ -408,7 +408,7 @@ $("send").onclick=async()=>{
   const p={title,image_url:$("img").value.trim(),description:$("desc").value.trim(),full_description:$("full").value.trim(),links,credits:$("cr").value.trim(),category:$("cat").value.trim(),type:$("type").value.trim(),youtube_url:$("yt").value.trim()};
   $("send").disabled=true;
   try{const r=await rpc("add_project",{p_key:KEY,p});if(!r.ok)throw 0;
-    m.className="ok";m.textContent="Uploaded. It is live on the main site.";
+    m.className="ok";m.textContent="Uploaded. It is live now, and shows for every visitor within about 10 minutes.";
     document.querySelectorAll("#app input,#app textarea").forEach(i=>i.value="");$("links").innerHTML="";addRow();$("pv").hidden=true;refresh();
   }catch(e){m.className="err";m.textContent="Upload failed. Check the key and try again."}
   $("send").disabled=false;
@@ -432,11 +432,19 @@ const yt=u=>{const m=(u||"").match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11
 const hue=l=>{let h=0;for(const c of l)h=(h*31+c.charCodeAt(0))%360;return `hsl(${h} 62% 52%)`};
 
 async function load(){
-  try{const r=await fetch(`${SB}/rest/v1/projects?select=*&order=created_at.desc`,{headers:H});if(!r.ok)throw 0;all=await r.json()}
-  catch(e){$("status").textContent="Offline";$("chips").style.display="none";$("viz").textContent="—";
-    $("projects").innerHTML='<div class="empty">Couldn\'t load projects. Refresh to try again.</div>';return}
-  facts();chips();list();
+  let got=false;
+  /* 1) snapshot saved on GitHub (always reachable) */
+  try{const r=await fetch("/projects.json?t="+Math.floor(Date.now()/6e4));
+    if(r.ok){const j=await r.json();if(Array.isArray(j)){all=j;got=true;show()}}}catch(e){}
+  /* 2) live data from Supabase (newest), replaces the snapshot when it works */
+  try{const c=new AbortController(),to=setTimeout(()=>c.abort(),8000);
+    const r=await fetch(`${SB}/rest/v1/projects?select=*&order=created_at.desc`,{headers:H,signal:c.signal});clearTimeout(to);
+    if(!r.ok)throw 0;all=await r.json();got=true;show();
+  }catch(e){}
+  if(!got){$("status").textContent="Offline";$("chips").style.display="none";$("viz").textContent="—";
+    $("projects").innerHTML='<div class="empty">Couldn\'t load projects. Check your internet and refresh.</div>'}
 }
+function show(){facts();chips();list()}
 function facts(){
   const c={};all.forEach(p=>{const k=p.category||"Other";c[k]=(c[k]||0)+1});
   const e=Object.entries(c).sort((a,b)=>b[1]-a[1]),max=e[0]?e[0][1]:1;
