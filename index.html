@@ -251,6 +251,7 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
 .ring circle{fill:none;stroke-width:9;stroke-linecap:round}
 .ring .bg{stroke:var(--line)}.ring .arc{stroke:var(--accent);transition:stroke-dashoffset 1s linear}
 .ring b{position:absolute;inset:0;display:grid;place-items:center;font:800 40px var(--display)}
+.linkmore{background:none;border:0;color:var(--accent);font:600 13px var(--body);cursor:pointer;padding:0;margin-top:8px}
 .ucard{max-width:680px;margin:48px auto}
 @media(max-width:600px){.pthumb{width:84px;height:58px}}
 </style>
@@ -357,7 +358,7 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
 
   <div id="app" hidden>
     <div class="panel ucard fld">
-      <div class="projects-header"><h2>Upload project</h2><a class="button secondary" href="/">Home</a></div>
+      <div class="projects-header"><h2 id="form-h">Upload project</h2><a class="button secondary" href="/">Home</a></div>
       <label for="img">Image URL</label><input id="img" type="url" placeholder="https://…">
       <img id="pv" class="hero" alt="" hidden style="margin-top:10px;max-height:180px">
       <label for="title">Title</label><input id="title">
@@ -370,7 +371,7 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
       <label for="type">Type</label><input id="type" list="types"><datalist id="types"><option>App</option><option>Game</option><option>Tool</option><option>Library</option><option>Website</option><option>Assets</option></datalist>
       <label for="yt">YouTube video (link)</label><input id="yt" type="url" placeholder="https://youtube.com/watch?v=…">
       <p id="msg" style="margin:14px 0"></p>
-      <button class="button" id="send" type="button">Upload project</button>
+      <button class="button" id="send" type="button">Upload project</button> <button class="button secondary" id="cancel" type="button" hidden>Cancel edit</button>
     </div>
     <div class="panel ucard" style="margin-top:0"><h2>Uploaded</h2><div id="list"></div></div>
   </div>
@@ -411,27 +412,43 @@ function addRow(){
 }
 $("add").onclick=addRow;
 $("img").oninput=()=>{const u=$("img").value.trim();$("pv").hidden=!safe(u);$("pv").src=safe(u)};
+let editId=null;
+function resetForm(){
+  document.querySelectorAll("#app .fld input,#app .fld textarea").forEach(i=>i.value="");
+  $("links").innerHTML="";addRow();$("pv").hidden=true;editId=null;
+  $("form-h").textContent="Upload project";$("send").textContent="Upload project";$("cancel").hidden=true;
+}
+function fillForm(p){
+  $("img").value=p.image_url||"";$("title").value=p.title||"";$("desc").value=p.description||"";$("full").value=p.full_description||"";
+  $("cr").value=p.credits||"";$("cat").value=p.category||"";$("type").value=p.type||"";$("yt").value=p.youtube_url||"";
+  $("links").innerHTML="";(p.links||[]).forEach(l=>{addRow();const r=$("links").lastChild;r.querySelector(".lt").value=l.title||"";r.querySelector(".lu").value=l.url||""});
+  if(!(p.links||[]).length)addRow();
+  $("img").oninput();editId=p.id;
+  $("form-h").textContent="Edit project";$("send").textContent="Save changes";$("cancel").hidden=false;scrollTo({top:0,behavior:"smooth"});
+}
+$("cancel").onclick=()=>{resetForm();$("msg").textContent=""};
 $("send").onclick=async()=>{
   const m=$("msg");m.className="";m.textContent="";
   const title=$("title").value.trim();
   if(!title){m.className="err";m.textContent="Add a title first.";return}
-  const links=[...document.querySelectorAll(".lr")].map(r=>({title:r.querySelector(".lt").value.trim(),url:r.querySelector(".lu").value.trim()})).filter(l=>safe(l.url));
+  const links=[...document.querySelectorAll(".lr")].map(r=>({title:r.querySelector(".lt")?.value.trim()||"",url:r.querySelector(".lu")?.value.trim()||""})).filter(l=>safe(l.url));
   const p={title,image_url:$("img").value.trim(),description:$("desc").value.trim(),full_description:$("full").value.trim(),links,credits:$("cr").value.trim(),category:$("cat").value.trim(),type:$("type").value.trim(),youtube_url:$("yt").value.trim()};
-  $("send").disabled=true;
-  try{const r=await rpc("add_project",{p_key:KEY,p});if(!r.ok)throw 0;
-    m.className="ok";m.textContent="Uploaded. It is live now, and shows for every visitor within about 10 minutes.";
-    document.querySelectorAll("#app input,#app textarea").forEach(i=>i.value="");$("links").innerHTML="";addRow();$("pv").hidden=true;refresh();
-  }catch(e){m.className="err";m.textContent="Upload failed. Check the key and try again."}
+  const was=editId;$("send").disabled=true;
+  try{const r=was?await rpc("update_project",{p_key:KEY,p_id:was,p}):await rpc("add_project",{p_key:KEY,p});
+    if(!r.ok){const j=await r.json().catch(()=>null);throw new Error((j&&j.message)||"")}
+    resetForm();m.className="ok";m.textContent=was?"Saved. The changes are live now, and show for every visitor within about 10 minutes.":"Uploaded. It is live now, and shows for every visitor within about 10 minutes.";refresh();
+  }catch(e){m.className="err";m.textContent="Failed. "+(e.message||"Check the key and try again.")}
   $("send").disabled=false;
 };
 async function refresh(){
-  const r=await fetch(`${SB}/rest/v1/projects?select=id,title,category&order=created_at.desc`,{headers:H});
+  const r=await fetch(`${SB}/rest/v1/projects?select=*&order=created_at.desc`,{headers:H});
   const l=r.ok?await r.json():[];
   $("cats").innerHTML=[...new Set(l.map(p=>p.category).filter(Boolean))].map(c=>`<option>${esc(c)}</option>`).join("");
   $("list").innerHTML=l.length?"":'<span class="muted-line">Nothing uploaded yet.</span>';
   l.forEach(p=>{const d=document.createElement("div");d.className="lr";d.style.justifyContent="space-between";d.style.alignItems="center";
-    d.innerHTML=`<span>${esc(p.title)} <span class="muted-line">${esc(p.category)}</span></span><button class="button secondary" type="button">Delete</button>`;
-    d.querySelector("button").onclick=async()=>{if(!confirm(`Delete "${p.title}"?`))return;await rpc("delete_project",{p_key:KEY,p_id:p.id});refresh()};
+    d.innerHTML=`<span>${esc(p.title)} <span class="muted-line">${esc(p.category)}</span></span><span style="display:flex;gap:6px;flex-shrink:0"><button class="button secondary" type="button" data-e>Edit</button><button class="button secondary" type="button" data-d>Delete</button></span>`;
+    d.querySelector("[data-e]").onclick=()=>fillForm(p);
+    d.querySelector("[data-d]").onclick=async()=>{if(!confirm(`Delete "${p.title}"?`))return;await rpc("delete_project",{p_key:KEY,p_id:p.id});if(editId===p.id)resetForm();refresh()};
     $("list").appendChild(d)});
 }
 }else{
@@ -440,6 +457,8 @@ let all=[],cat="All",timer=0,lastFocus=null;
 const ago=d=>{const s=(Date.now()-new Date(d))/1e3;return s<3600?Math.max(1,Math.floor(s/60))+"m ago":s<86400?Math.floor(s/3600)+"h ago":s<2592000?Math.floor(s/86400)+"d ago":Math.floor(s/2592000)+"mo ago"};
 const fmt=d=>d?new Date(d).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}):"—";
 const yt=u=>{const m=(u||"").match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/);return m&&m[1]};
+const fmtTxt=t=>esc(t).replace(/\*\*([\s\S]+?)\*\*/g,"<b>$1</b>");
+const clip=(t,n)=>{if(t.length<=n)return null;let c=t.slice(0,n);if((c.match(/\*\*/g)||[]).length%2)c+="**";return c+"…"};
 const hue=l=>{let h=0;for(const c of l)h=(h*31+c.charCodeAt(0))%360;return `hsl(${h} 62% 52%)`};
 
 async function load(){
@@ -476,7 +495,7 @@ function list(){
   l.forEach(p=>{
     const el=document.createElement("button");el.className="project";el.type="button";el.onclick=()=>openProject(p);
     el.innerHTML=`${safe(p.image_url)?`<img class="pthumb" loading="lazy" alt="" src="${esc(p.image_url)}">`:'<div class="pthumb"></div>'}
-      <div class="pinfo"><div class="project-name">${esc(p.title)}</div><div class="project-description">${esc(p.description||"No description provided.")}</div>
+      <div class="pinfo"><div class="project-name">${esc(p.title)}</div><div class="project-description">${fmtTxt(p.description||"No description provided.")}</div>
       <div class="project-info">${p.category?`<span class="language" style="--dot:${hue(p.category)}">${esc(p.category)}</span>`:""}${p.type?`<span>${esc(p.type)}</span>`:""}<span>Added ${ago(p.created_at)}</span></div></div>`;
     box.appendChild(el);
   });
@@ -485,8 +504,9 @@ $("search").addEventListener("input",list);$("sort").addEventListener("change",l
 
 function openProject(p){
   lastFocus=document.activeElement;
+  const full=p.full_description||"",short=clip(full,200);
   const v=yt(p.youtube_url),links=(p.links||[]).filter(l=>safe(l.url));
-  $("modal-title").textContent=p.title;$("modal-subtitle").textContent=p.description||"";
+  $("modal-title").textContent=p.title;$("modal-subtitle").innerHTML=fmtTxt(p.description||"");
   $("modal-body").innerHTML=
     (safe(p.image_url)?`<div class="modal-section"><img class="hero" src="${esc(p.image_url)}" alt=""></div>`:"")+
     `<div class="modal-section"><div class="stat-grid">
@@ -494,10 +514,11 @@ function openProject(p){
       <div class="stat-box"><div class="label">Type</div><div class="value">${esc(p.type||"—")}</div></div>
       <div class="stat-box"><div class="label">Credits</div><div class="value">${esc(p.credits||"—")}</div></div>
       <div class="stat-box"><div class="label">Added</div><div class="value">${fmt(p.created_at)}</div></div></div></div>`+
-    (p.full_description?`<div class="modal-section"><h3>About this project</h3><div style="white-space:pre-wrap">${esc(p.full_description)}</div></div>`:"")+
+    (full?`<div class="modal-section"><h3>About this project</h3><div id="fd" style="white-space:pre-wrap">${fmtTxt(short||full)}</div>${short?'<button class="linkmore" id="more" type="button">Show more</button>':""}</div>`:"")+
     (v?`<div class="modal-section"><h3>Video</h3><iframe class="video" src="https://www.youtube-nocookie.com/embed/${v}" title="Video" loading="lazy" allowfullscreen></iframe></div>`:"")+
     (links.length?`<div class="modal-section"><h3>Links</h3><div class="links-list">${links.map((l,i)=>`<button class="link-row" type="button" data-i="${i}"><span class="tag">Link</span>${esc(l.title||"Open link")}</button>`).join("")}</div></div>`:"");
   $("modal-body").querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>gate(links[b.dataset.i]));
+  const mb=$("more");if(mb){let o=false;mb.onclick=()=>{o=!o;$("fd").innerHTML=fmtTxt(o?full:short);mb.textContent=o?"Show less":"Show more"}}
   $("modal-overlay").classList.add("open");document.body.style.overflow="hidden";$("modal-close").focus();
 }
 function closeModal(){$("modal-overlay").classList.remove("open");document.body.style.overflow="";if(lastFocus)lastFocus.focus()}
@@ -509,9 +530,11 @@ function gate(l){
   let t=WAIT;const C=2*Math.PI*66,arc=$("arc");arc.style.strokeDasharray=C;
   const paint=()=>{arc.style.strokeDashoffset=C*t/WAIT;$("g-n").textContent=t;$("g-s").textContent=t};
   $("g-t").textContent=l.title||"";paint();
-  $("adbox").innerHTML='<ins class="adsbygoogle" style="display:block;min-height:120px" data-ad-client="ca-pub-3421766795441970" data-ad-slot="3223311087" data-ad-format="auto" data-full-width-responsive="true"></ins>';
-  try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch(e){}
-  $("gate").classList.add("open");clearInterval(timer);
+  const ad='<ins class="adsbygoogle" style="display:block;min-height:120px" data-ad-client="ca-pub-3421766795441970" data-ad-slot="3223311087" data-ad-format="auto" data-full-width-responsive="true"></ins>';
+  $("adbox").innerHTML=ad+'<div style="height:14px"></div>'+ad;
+  $("gate").classList.add("open");
+  setTimeout(()=>{document.querySelectorAll("#adbox ins.adsbygoogle").forEach(()=>{try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch(e){}})},80);
+  clearInterval(timer);
   timer=setInterval(()=>{if(document.hidden)return;t--;paint();if(t<=0){clearInterval(timer);location.href=l.url}},1000);
 }
 $("g-x").onclick=()=>{clearInterval(timer);$("gate").classList.remove("open")};
@@ -519,12 +542,20 @@ $("g-x").onclick=()=>{clearInterval(timer);$("gate").classList.remove("open")};
 try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch(e){}
 load();
 
-/* ad blocker check: bait element hidden, ad script blocked, or ad script never loaded */
-let late=false;
-function blocked(){const b=$("adbait"),c=getComputedStyle(b);
-  return !!window.__adErr||!b.offsetHeight||c.display==="none"||c.visibility==="hidden"||(late&&!(window.adsbygoogle&&window.adsbygoogle.loaded))}
-function checkAds(){if(blocked()){$("adblock").classList.add("open");document.body.style.overflow="hidden"}}
-addEventListener("load",()=>{setTimeout(checkAds,1500);setTimeout(()=>{late=true;checkAds()},6000)});
+/* ad blocker check: hidden bait, blocked ad requests, or ad script that never ran */
+let walled=false;
+function showWall(){if(walled)return;walled=true;$("adblock").classList.add("open");document.body.style.overflow="hidden"}
+function baitHidden(){const b=$("adbait");if(!b||!document.body.contains(b))return true;const c=getComputedStyle(b);return !b.offsetHeight||c.display==="none"||c.visibility==="hidden"||c.opacity==="0"}
+async function netBlocked(){
+  for(const u of ["https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js","https://googleads.g.doubleclick.net/pagead/id"]){
+    try{await fetch(u,{method:"HEAD",mode:"no-cors",cache:"no-store"})}catch(e){return true}}
+  return false}
+const insDead=()=>{const i=document.querySelector("ins.adsbygoogle");return !!i&&!i.hasAttribute("data-adsbygoogle-status")};
+addEventListener("load",()=>{
+  setTimeout(async()=>{if(window.__adErr||baitHidden()||await netBlocked())showWall()},800);
+  setTimeout(()=>{if(insDead())showWall()},6000);
+  setInterval(()=>{if(window.__adErr||baitHidden())showWall()},3000);
+});
 }
 </script>
 </body>
