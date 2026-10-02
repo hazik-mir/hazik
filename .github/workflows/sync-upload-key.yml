@@ -1,13 +1,30 @@
-name: Sync upload key
-on: workflow_dispatch   # run manually after changing the UPLOAD_KEY secret
+name: Sync projects
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # every 10 minutes
+  workflow_dispatch:          # or run by hand from the Actions tab
+permissions:
+  contents: write
+  pages: write
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Save key (hashed) in Supabase
+      - uses: actions/checkout@v4
+      - name: Export projects from Supabase
         env:
           DB_URL: ${{ secrets.SUPABASE_DB_URL }}
-          UPLOAD_KEY: ${{ secrets.UPLOAD_KEY }}
         run: |
-          K=$(printf '%s' "$UPLOAD_KEY" | tr -d '[:space:]')
-          echo "select set_upload_key(:'k');" | psql "$DB_URL" -v k="$K"
+          psql "$DB_URL" -At -c "select coalesce(json_agg(p order by created_at desc),'[]'::json) from projects p" > /tmp/p.json
+          cp /tmp/p.json projects.json
+      - name: Save projects.json if it changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add projects.json
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git commit -m "Update projects.json"
+          git push
+          curl -s -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${{ github.repository }}/pages/builds" > /dev/null
