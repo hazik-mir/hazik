@@ -119,6 +119,11 @@ h1{font:800 clamp(44px,6vw,64px)/.95 var(--display);letter-spacing:-.035em;margi
 .rule-note{margin-top:24px;padding:12px 14px;border-radius:10px;background:var(--warn-bg);color:var(--warn);font-size:13px;line-height:1.5}
 .rule-note b{font-weight:600}
 
+/* AdSense placement */
+.ad-container{position:relative;margin:0 0 20px;padding:16px 12px 10px;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;}
+.ad-label{display:block;margin-bottom:8px;color:var(--muted);font:400 10px/1.2 var(--body);letter-spacing:.08em;text-align:center;text-transform:uppercase;}
+.ad-container ins.adsbygoogle{width:100%;min-height:90px;}
+
 /* projects */
 .projects-header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:16px}
 .projects-header h2{font:700 28px/1.1 var(--display);letter-spacing:-.02em;margin:0}
@@ -257,6 +262,16 @@ footer{margin-top:64px;padding:28px 0;border-top:1px solid var(--line);color:var
       <div class="projects-header">
         <h2 id="projects-title">Open source projects</h2>
         <span class="status" id="status" aria-live="polite">Loading…</span>
+      </div>
+
+      <div class="ad-container" aria-label="Advertisement">
+        <span class="ad-label">Advertisement</span>
+        <ins class="adsbygoogle"
+             style="display:block; min-height:90px; text-align:center;"
+             data-ad-client="ca-pub-3421766795441970"
+             data-ad-slot="3223311087"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
       </div>
 
       <div class="toolbar">
@@ -1547,6 +1562,13 @@ function escapeHTML(text) {
 
 }
 
+
+// Initialize the Main Stream AdSense unit once.
+try {
+  (adsbygoogle = window.adsbygoogle || []).push({});
+} catch (error) {
+  console.warn("AdSense could not initialize.", error);
+}
 
 loadProjects();
 
