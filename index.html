@@ -24,8 +24,9 @@
 <link rel="apple-touch-icon" href="icon.png">
 
 <!-- Theme -->
-<meta name="theme-color" content="#0d1117">
-<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#f4f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1118" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -59,927 +60,256 @@
 }
 </script>
 
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3421766795441970"
+     crossorigin="anonymous"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: #0d1117;
-  color: #f0f6fc;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.container {
-  width: min(900px, calc(100% - 32px));
-  margin: auto;
-}
-
-/* NAV */
-
-nav {
-  border-bottom: 1px solid #21262d;
-}
-
-.nav {
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.logo-image {
-  width: 30px;
-  height: 30px;
-  border-radius: 7px;
-  object-fit: cover;
-}
-
-.logo {
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-}
-
-.logo span {
-  color: #39d353;
-}
-
-.github {
-  border: 1px solid #30363d;
-  padding: 7px 13px;
-  border-radius: 6px;
-  font-size: 14px;
-  color: #c9d1d9;
-}
-
-.github:hover {
-  border-color: #8b949e;
-}
-
-/* HERO */
-
-.hero {
-  padding: 90px 0 65px;
-}
-
-.hero-brand {
-  width: 74px;
-  height: 74px;
-  border-radius: 18px;
-  margin-bottom: 24px;
-  object-fit: cover;
-  border: 1px solid #30363d;
-}
-
-.hero h1 {
-  margin: 0;
-  font-size: clamp(52px, 9vw, 82px);
-  letter-spacing: -4px;
-}
-
-.hero h1 span {
-  color: #39d353;
-}
-
-.hero p {
-  color: #8b949e;
-  font-size: 18px;
-  line-height: 1.65;
-  margin: 15px 0 25px;
-  max-width: 600px;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 9px;
-  flex-wrap: wrap;
-}
-
-.button {
-  display: inline-block;
-  background: #238636;
-  border: 1px solid #2ea043;
-  padding: 9px 15px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.button:hover {
-  background: #2ea043;
-}
-
-.button.secondary {
-  background: #161b22;
-  border-color: #30363d;
-}
-
-.button.secondary:hover {
-  background: #21262d;
-}
-
-/* ABOUT */
-
-.about {
-  margin-bottom: 55px;
-}
-
-.about-card {
-  border: 1px solid #21262d;
-  border-radius: 8px;
-  padding: 22px;
-  background: #0d1117;
-}
-
-.about-card h2 {
-  margin: 0 0 10px;
-  font-size: 20px;
-}
-
-.about-card p {
-  color: #8b949e;
-  line-height: 1.7;
-  font-size: 14px;
-  margin: 0;
-}
-
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 10px;
-  margin-top: 18px;
-}
-
-.info-box {
-  background: #161b22;
-  border: 1px solid #21262d;
-  border-radius: 7px;
-  padding: 14px;
-}
-
-.info-box strong {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 5px;
-}
-
-.info-box span {
-  color: #8b949e;
-  font-size: 12px;
-}
-
-/* CONTRIBUTION */
-
-.contribute {
-  margin: 55px 0;
-}
-
-.contribute-card {
-  border: 1px solid #30363d;
-  border-radius: 8px;
-  padding: 22px;
-  background: #161b22;
-}
-
-.contribute-card h2 {
-  margin: 0 0 9px;
-  font-size: 20px;
-}
-
-.contribute-card p {
-  margin: 0 0 17px;
-  color: #8b949e;
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-.contribute-links {
-  display: flex;
-  gap: 9px;
-  flex-wrap: wrap;
-}
-
-.contribute-link {
-  display: inline-block;
-  border: 1px solid #30363d;
-  border-radius: 6px;
-  padding: 8px 12px;
-  color: #58a6ff;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.contribute-link:hover {
-  border-color: #58a6ff;
-  background: #0d1117;
-}
-
-/* PROJECTS */
-
-.projects-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 6px;
-}
-
-.projects-header h2 {
-  font-size: 20px;
-  margin: 0;
-}
-
-.status {
-  color: #8b949e;
-  font-size: 13px;
-}
-
-.credit-note {
-  color: #8b949e;
-  font-size: 13px;
-  margin-bottom: 15px;
-  line-height: 1.5;
-}
-
-.credit-note b {
-  color: #e3b341;
-  font-weight: 600;
-}
-
-#projects {
-  border: 1px solid #30363d;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.project {
-  display: block;
-  width: 100%;
-  text-align: left;
-  background: none;
-  border: none;
-  font-family: inherit;
-  padding: 18px 20px;
-  border-bottom: 1px solid #21262d;
-  transition: background .15s;
-  cursor: pointer;
-  color: inherit;
-}
-
-.project:last-child {
-  border-bottom: 0;
-}
-
-.project:hover {
-  background: #161b22;
-}
-
-.project-name {
-  color: #58a6ff;
-  font-weight: 600;
-  font-size: 16px;
-}
-
-.project-description {
-  color: #8b949e;
-  font-size: 14px;
-  margin-top: 5px;
-}
-
-.project-info {
-  display: flex;
-  gap: 18px;
-  margin-top: 10px;
-  color: #8b949e;
-  font-size: 12px;
-  flex-wrap: wrap;
-}
-
-.language::before {
-  content: "";
-  display: inline-block;
-  width: 9px;
-  height: 9px;
-  background: #39d353;
-  border-radius: 50%;
-  margin-right: 5px;
-}
-
-.empty {
-  padding: 30px;
-  text-align: center;
-  color: #8b949e;
-}
-
-/* FOOTER */
-
-footer {
-  margin-top: 80px;
-  padding: 25px 0;
-  border-top: 1px solid #21262d;
-  color: #8b949e;
-  font-size: 13px;
-}
-
-.footer-links {
-  margin-top: 7px;
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.footer-links a {
-  color: #58a6ff;
-}
-
-/* MODAL */
-
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(1, 4, 9, 0.75);
-  backdrop-filter: blur(2px);
-  z-index: 100;
-  padding: 24px 12px;
-  overflow-y: auto;
-}
-
-.modal-overlay.open {
-  display: block;
-}
-
-.modal {
-  width: min(760px, 100%);
-  margin: 0 auto;
-  background: #0d1117;
-  border: 1px solid #30363d;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.modal-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 18px 22px;
-  border-bottom: 1px solid #21262d;
-  position: sticky;
-  top: 0;
-  background: #0d1117;
-}
-
-.modal-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: #f0f6fc;
-  word-break: break-word;
-}
-
-.modal-subtitle {
-  color: #8b949e;
-  font-size: 13px;
-  margin-top: 4px;
-}
-
-.modal-credit-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 10px;
-  background: rgba(227, 179, 65, 0.12);
-  border: 1px solid rgba(227, 179, 65, 0.4);
-  color: #e3b341;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 5px 10px;
-  border-radius: 6px;
-}
-
-.modal-close {
-  background: none;
-  border: 1px solid #30363d;
-  color: #c9d1d9;
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-  font-size: 15px;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.modal-close:hover {
-  border-color: #8b949e;
-}
-
-.modal-body {
-  padding: 22px;
-}
-
-.modal-section {
-  margin-bottom: 26px;
-}
-
-.modal-section:last-child {
-  margin-bottom: 0;
-}
-
-.modal-section h3 {
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #8b949e;
-  margin: 0 0 12px;
-}
-
-.modal-loading {
-  text-align: center;
-  color: #8b949e;
-  padding: 40px 0;
-  font-size: 14px;
-}
-
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 10px;
-}
-
-.stat-box {
-  border: 1px solid #21262d;
-  border-radius: 8px;
-  padding: 12px 14px;
-  background: #161b22;
-}
-
-.stat-box .label {
-  color: #8b949e;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
-
-.stat-box .value {
-  font-size: 16px;
-  font-weight: 700;
-  margin-top: 4px;
-  color: #f0f6fc;
-  word-break: break-word;
-}
-
-.topics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.topic-tag {
-  background: rgba(56, 139, 253, 0.1);
-  border: 1px solid rgba(56, 139, 253, 0.4);
-  color: #58a6ff;
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 20px;
-}
-
-.links-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.link-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid #21262d;
-  border-radius: 8px;
-  padding: 10px 14px;
-  color: #58a6ff;
-  font-size: 14px;
-}
-
-.link-row:hover {
-  border-color: #8b949e;
-  background: #161b22;
-}
-
-.link-row .tag {
-  color: #8b949e;
-  font-size: 11px;
-  text-transform: uppercase;
-  border: 1px solid #30363d;
-  border-radius: 4px;
-  padding: 1px 6px;
-  flex-shrink: 0;
-}
-
-.platform-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.platform-tab {
-  background: #161b22;
-  border: 1px solid #30363d;
-  color: #c9d1d9;
-  font-size: 13px;
-  padding: 7px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.platform-tab.active {
-  background: #238636;
-  border-color: #2ea043;
-  color: #fff;
-}
-
-.cmd-box {
-  position: relative;
-  background: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 8px;
-  padding: 14px 16px;
-}
-
-.cmd-box pre {
-  margin: 0;
-  white-space: pre-wrap;
-  word-break: break-all;
-  font-family: "SFMono-Regular", Consolas, Menlo, monospace;
-  font-size: 12.5px;
-  color: #a5d6ff;
-  line-height: 1.6;
-  padding-right: 65px;
-}
-
-.copy-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #21262d;
-  border: 1px solid #30363d;
-  color: #c9d1d9;
-  font-size: 12px;
-  padding: 5px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.copy-btn:hover {
-  border-color: #8b949e;
-}
-
-.release-item {
-  border: 1px solid #21262d;
-  border-radius: 8px;
-  padding: 12px 14px;
-  margin-bottom: 8px;
-}
-
-.release-item:last-child {
-  margin-bottom: 0;
-}
-
-.release-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.release-name {
-  font-weight: 600;
-  color: #f0f6fc;
-  font-size: 14px;
-}
-
-.release-date {
-  color: #8b949e;
-  font-size: 12px;
-}
-
-.release-dl {
-  display: inline-block;
-  margin-top: 8px;
-  color: #58a6ff;
-  font-size: 13px;
-  border: 1px solid #30363d;
-  padding: 5px 10px;
-  border-radius: 6px;
-}
-
-.release-dl:hover {
-  border-color: #8b949e;
-}
-
-.tag-pill-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.tag-pill {
-  border: 1px solid #30363d;
-  color: #c9d1d9;
-  font-size: 12.5px;
-  padding: 5px 10px;
-  border-radius: 6px;
-}
-
-.contributors {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.contributor {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid #21262d;
-  border-radius: 20px;
-  padding: 5px 12px 5px 5px;
-  font-size: 13px;
-  color: #c9d1d9;
-}
-
-.contributor:hover {
-  border-color: #8b949e;
-}
-
-.contributor img {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: block;
-}
-
-.contributor .count {
-  color: #8b949e;
-  font-size: 11px;
-}
-
-.muted-line {
-  color: #8b949e;
-  font-size: 13px;
-}
-
-@media(max-width:600px) {
-
-  .hero {
-    padding-top: 65px;
+:root{
+  --bg:#f4f5f7; --surface:#ffffff; --sunk:#eceef2; --ink:#14171f; --muted:#5b6272;
+  --line:#dcdfe6; --accent:#2f45e8; --accent-ink:#ffffff; --warn:#8a5a00; --warn-bg:#fff4d6;
+  --code-bg:#14171f; --code-ink:#c9d4ff;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1118; --surface:#151923; --sunk:#1b2030; --ink:#e9ebf2; --muted:#9097a8;
+    --line:#262c3d; --accent:#8b9aff; --accent-ink:#0e1118; --warn:#f0c05a; --warn-bg:#2a2210;
+    --code-bg:#0a0d13; --code-ink:#b9c6ff;
   }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1118; --surface:#151923; --sunk:#1b2030; --ink:#e9ebf2; --muted:#9097a8;
+  --line:#262c3d; --accent:#8b9aff; --accent-ink:#0e1118; --warn:#f0c05a; --warn-bg:#2a2210;
+  --code-bg:#0a0d13; --code-ink:#b9c6ff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;color-scheme:light dark}
+:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.wrap{width:min(1120px,calc(100% - 40px));margin:0 auto}
 
-  .hero h1 {
-    letter-spacing: -3px;
-  }
+/* layout */
+.shell{display:grid;grid-template-columns:320px minmax(0,1fr);gap:56px;padding:56px 0 24px;align-items:start}
+.side{position:sticky;top:32px}
+.brandrow{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.logo-image{width:56px;height:56px;border-radius:14px;object-fit:cover;border:1px solid var(--line);background:var(--surface)}
+.theme-btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:16px}
+.theme-btn:hover{border-color:var(--muted)}
+h1{font:800 clamp(44px,6vw,64px)/.95 var(--display);letter-spacing:-.035em;margin:0 0 16px}
+.lede{color:var(--muted);margin:0 0 24px;max-width:34ch}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.button{display:inline-flex;align-items:center;background:var(--accent);color:var(--accent-ink);border:1px solid var(--accent);padding:9px 16px;border-radius:9px;font-weight:600;font-size:14px;cursor:pointer;transition:filter .15s}
+.button:hover{filter:brightness(1.1)}
+.button.secondary{background:transparent;color:var(--ink);border-color:var(--line)}
+.button.secondary:hover{border-color:var(--muted);filter:none}
+.facts{margin:0;padding:20px 0 0;border-top:1px solid var(--line);display:grid;gap:14px}
+.facts div{display:grid;grid-template-columns:96px 1fr;gap:12px;font-size:13.5px}
+.facts dt{color:var(--muted)}
+.facts dd{margin:0;font-weight:500}
+.rule-note{margin-top:24px;padding:12px 14px;border-radius:10px;background:var(--warn-bg);color:var(--warn);font-size:13px;line-height:1.5}
+.rule-note b{font-weight:600}
 
-  .hero-brand {
-    width: 62px;
-    height: 62px;
-  }
+/* projects */
+.projects-header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:16px}
+.projects-header h2{font:700 28px/1.1 var(--display);letter-spacing:-.02em;margin:0}
+.status{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.search{flex:1 1 220px;position:relative}
+.search input{width:100%;height:40px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:0 12px;font:inherit;font-size:14px}
+.search input::placeholder{color:var(--muted)}
+.search input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.sort{height:40px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:0 10px;font:inherit;font-size:14px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.chip{border:1px solid var(--line);background:transparent;color:var(--muted);font:500 13px var(--body);padding:5px 11px;border-radius:999px;cursor:pointer}
+.chip:hover{color:var(--ink);border-color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+#projects{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.project{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);font:inherit;color:inherit;padding:18px 22px;cursor:pointer;transition:background .15s}
+.project:last-child{border-bottom:0}
+.project:hover{background:var(--sunk)}
+.project-name{font:700 18px/1.3 var(--display);letter-spacing:-.01em}
+.project:hover .project-name{color:var(--accent)}
+.project-description{color:var(--muted);font-size:14px;margin-top:3px;max-width:68ch}
+.project-info{display:flex;gap:16px;margin-top:10px;color:var(--muted);font-size:12.5px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.language::before{content:"";display:inline-block;width:9px;height:9px;background:var(--dot,var(--accent));border-radius:50%;margin-right:6px}
+.empty{padding:40px 24px;text-align:center;color:var(--muted)}
+.empty a{color:var(--accent);font-weight:600}
+.skeleton{height:92px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,transparent,var(--sunk),transparent);background-size:200% 100%;animation:sk 1.4s infinite}
+@keyframes sk{from{background-position:200% 0}to{background-position:-200% 0}}
 
-  .modal-body {
-    padding: 17px;
-  }
+.about{margin:56px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.panel{border:1px solid var(--line);border-radius:14px;padding:26px;background:var(--surface)}
+.panel h2{font:700 22px/1.2 var(--display);letter-spacing:-.02em;margin:0 0 10px}
+.panel p{color:var(--muted);margin:0 0 18px;max-width:52ch}
+.contribute-links{display:flex;gap:8px;flex-wrap:wrap}
+.contribute-link{border:1px solid var(--line);border-radius:9px;padding:8px 13px;font-size:13.5px;font-weight:600;color:var(--accent)}
+.contribute-link:hover{border-color:var(--accent)}
+.steps{margin:0;padding-left:20px;color:var(--muted)}
+.steps li{margin-bottom:6px}
 
+footer{margin-top:64px;padding:28px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.footer-links{display:flex;gap:18px}
+.footer-links a:hover{color:var(--ink)}
+
+/* modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(8,10,16,.6);backdrop-filter:blur(3px);z-index:100;padding:32px 12px;overflow-y:auto}
+.modal-overlay.open{display:block}
+.modal{width:min(780px,100%);margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;animation:pop .18s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.modal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:20px 24px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--surface);z-index:2}
+.modal-title{font:800 24px/1.2 var(--display);letter-spacing:-.02em;word-break:break-word}
+.modal-subtitle{color:var(--muted);font-size:14px;margin-top:4px}
+.modal-credit-badge{display:inline-block;margin-top:12px;background:var(--warn-bg);color:var(--warn);font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:8px}
+.modal-close{background:none;border:1px solid var(--line);color:var(--ink);width:34px;height:34px;border-radius:9px;font-size:14px;cursor:pointer;flex-shrink:0}
+.modal-close:hover{border-color:var(--muted)}
+.modal-body{padding:24px}
+.modal-section{margin-bottom:28px}
+.modal-section:last-child{margin-bottom:0}
+.modal-section h3{font:700 15px/1.2 var(--display);margin:0 0 12px}
+.modal-loading,.muted-line{color:var(--muted);font-size:14px}
+.modal-loading{text-align:center;padding:40px 0}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.stat-box{padding:12px 14px;background:var(--surface)}
+.stat-box .label{color:var(--muted);font-size:12px}
+.stat-box .value{font-weight:600;margin-top:2px;word-break:break-word;font-variant-numeric:tabular-nums}
+.topics,.tag-pill-row,.contributors{display:flex;flex-wrap:wrap;gap:8px}
+.topic-tag{background:var(--sunk);color:var(--ink);font-size:12.5px;padding:3px 10px;border-radius:999px}
+.links-list{display:flex;flex-direction:column;gap:8px}
+.link-row{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px;word-break:break-all}
+.link-row:hover,.release-dl:hover,.tag-pill:hover,.contributor:hover{border-color:var(--accent)}
+.link-row .tag{color:var(--muted);font-size:12px;background:var(--sunk);border-radius:6px;padding:1px 7px;flex-shrink:0}
+.platform-tabs{display:inline-flex;flex-wrap:wrap;gap:2px;padding:3px;background:var(--sunk);border-radius:10px;margin-bottom:12px}
+.platform-tab{background:none;border:0;color:var(--muted);font:500 13px var(--body);padding:6px 12px;border-radius:8px;cursor:pointer}
+.platform-tab.active{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.cmd-box{position:relative;background:var(--code-bg);border-radius:12px;padding:16px}
+.cmd-box pre{margin:0;white-space:pre-wrap;word-break:break-all;font:400 12.5px/1.7 var(--mono);color:var(--code-ink);padding-right:70px}
+.copy-btn{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.1);border:0;color:#fff;font:500 12px var(--body);padding:5px 11px;border-radius:7px;cursor:pointer}
+.copy-btn:hover{background:rgba(255,255,255,.2)}
+.release-item{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:8px}
+.release-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.release-name{font-weight:600;font-size:14px}
+.release-date{color:var(--muted);font-size:12.5px}
+.release-dl,.tag-pill{display:inline-block;color:var(--accent);font-size:13px;border:1px solid var(--line);padding:5px 10px;border-radius:8px}
+.release-dl{margin-top:8px}
+.contributor{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:4px 12px 4px 4px;font-size:13px}
+.contributor img{width:24px;height:24px;border-radius:50%;display:block}
+.contributor .count{color:var(--muted);font-size:12px}
+
+@media (max-width:860px){
+  .shell{grid-template-columns:1fr;gap:36px;padding-top:32px}
+  .side{position:static}
+  .about{grid-template-columns:1fr}
+  .lede{max-width:none}
+}
+@media (max-width:600px){
+  .modal-body{padding:18px}
+  .project{padding:16px}
+  .facts div{grid-template-columns:84px 1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
 }
 </style>
 </head>
 
 <body>
 
-<nav>
-  <div class="container nav">
+<div class="wrap shell">
 
-    <div class="brand">
-      <img
-        class="logo-image"
-        src="icon.png"
-        alt="HAZIK logo">
-
-      <div class="logo">
-        HAZIK<span>.</span>
-      </div>
+  <aside class="side">
+    <div class="brandrow">
+      <img class="logo-image" src="icon.png" alt="HAZIK logo" width="56" height="56">
+      <button class="theme-btn" id="theme-btn" type="button" aria-label="Switch theme">◐</button>
     </div>
 
-    <a
-      class="github"
-      href="https://github.com/Hazik-Mir"
-      target="_blank"
-      rel="noopener">
-      GitHub ↗
-    </a>
+    <h1>HAZIK</h1>
+    <p class="lede">Developer and builder. I make apps, games, tools and libraries, and publish all of it as open source.</p>
 
-  </div>
-</nav>
-
-
-<main class="container">
-
-  <!-- HERO -->
-
-  <section class="hero">
-
-    <img
-      class="hero-brand"
-      src="icon.png"
-      alt="HAZIK">
-
-    <h1>HAZIK<span>.</span></h1>
-
-    <p>
-      Developer, creator and builder.
-      I make apps, games, tools, libraries and random things
-      that I find interesting.
-    </p>
-
-    <div class="hero-actions">
-
-      <a
-        class="button"
-        href="https://github.com/Hazik-Mir"
-        target="_blank"
-        rel="noopener">
-        View GitHub
-      </a>
-
-      <a
-        class="button secondary"
-        href="#contribute">
-        Contribute
-      </a>
-
+    <div class="actions">
+      <a class="button" href="https://github.com/Hazik-Mir" target="_blank" rel="noopener">View GitHub</a>
+      <a class="button secondary" href="#contribute">Contribute</a>
     </div>
 
-  </section>
+    <dl class="facts">
+      <div><dt>Projects</dt><dd id="fact-projects">…</dd></div>
+      <div><dt>Stars</dt><dd id="fact-stars">…</dd></div>
+      <div><dt>Main language</dt><dd id="fact-lang">…</dd></div>
+      <div><dt>Last update</dt><dd id="fact-updated">…</dd></div>
+    </dl>
 
+    <div class="rule-note"><b>Credit required.</b> You can use any project here, but you must credit Hazik (hazik.in).</div>
+  </aside>
 
-  <!-- ABOUT -->
-
-  <section class="about">
-
-    <div class="about-card">
-
-      <h2>About HAZIK</h2>
-
-      <p>
-        Welcome to my open-source space. This website collects my public
-        programming projects, experiments and developer tools in one place.
-        Everything is built to be explored, used, modified and improved
-        together with the community.
-      </p>
-
-      <div class="info-grid">
-
-        <div class="info-box">
-          <strong>Open Source</strong>
-          <span>Public projects available on GitHub</span>
-        </div>
-
-        <div class="info-box">
-          <strong>Developer Tools</strong>
-          <span>Libraries, utilities and useful experiments</span>
-        </div>
-
-        <div class="info-box">
-          <strong>Apps & Games</strong>
-          <span>Projects built across different platforms</span>
-        </div>
-
-        <div class="info-box">
-          <strong>Community</strong>
-          <span>Fork, improve and contribute to projects</span>
-        </div>
-
+  <main>
+    <section aria-labelledby="projects-title">
+      <div class="projects-header">
+        <h2 id="projects-title">Open source projects</h2>
+        <span class="status" id="status" aria-live="polite">Loading…</span>
       </div>
 
-    </div>
-
-  </section>
-
-
-  <!-- PROJECTS -->
-
-  <section>
-
-    <div class="projects-header">
-
-      <h2>Open Source Projects</h2>
-
-      <span class="status" id="status">
-        Loading...
-      </span>
-
-    </div>
-
-    <div class="credit-note">
-      All projects below are open source.
-      <b>Must credit Hazik before use.</b>
-      Click any project for full details, releases and download commands.
-    </div>
-
-    <div id="projects">
-
-      <div class="empty">
-        Loading projects...
+      <div class="toolbar">
+        <div class="search">
+          <input id="search" type="search" placeholder="Search projects" aria-label="Search projects" autocomplete="off">
+        </div>
+        <select class="sort" id="sort" aria-label="Sort projects">
+          <option value="updated">Recently updated</option>
+          <option value="stars">Most stars</option>
+          <option value="name">Name</option>
+        </select>
       </div>
 
-    </div>
+      <div class="chips" id="chips" role="group" aria-label="Filter by language"></div>
 
-  </section>
-
-
-  <!-- CONTRIBUTION -->
-
-  <section class="contribute" id="contribute">
-
-    <div class="contribute-card">
-
-      <h2>Want to contribute?</h2>
-
-      <p>
-        If you want to improve a project, fix a bug, add a feature or
-        experiment with the code, you're welcome to contribute.
-        Open a project on GitHub, fork it, make your changes and submit
-        a pull request.
-      </p>
-
-      <div class="contribute-links">
-
-        <a
-          class="contribute-link"
-          href="https://github.com/Hazik-Mir"
-          target="_blank"
-          rel="noopener">
-          Browse Projects →
-        </a>
-
-        <a
-          class="contribute-link"
-          href="https://github.com/Hazik-Mir?tab=repositories"
-          target="_blank"
-          rel="noopener">
-          Fork a Project →
-        </a>
-
+      <div id="projects">
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
       </div>
+    </section>
 
-    </div>
-
-  </section>
-
-</main>
-
+    <section class="about" id="contribute">
+      <div class="panel">
+        <h2>About</h2>
+        <p>This site lists my public projects and experiments in one place. Open a project to see releases, contributors and the commands to download it.</p>
+      </div>
+      <div class="panel">
+        <h2>Contribute</h2>
+        <ol class="steps">
+          <li>Pick a project and fork it on GitHub.</li>
+          <li>Make your fix or feature.</li>
+          <li>Open a pull request.</li>
+        </ol>
+        <div class="contribute-links" style="margin-top:18px">
+          <a class="contribute-link" href="https://github.com/Hazik-Mir?tab=repositories" target="_blank" rel="noopener">Browse repositories</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
 
 <footer>
-
-  <div class="container">
-
-    © 2026 HAZIK
-
+  <div class="wrap foot">
+    <span>© 2026 HAZIK</span>
     <div class="footer-links">
-
-      <a
-        href="https://github.com/Hazik-Mir"
-        target="_blank"
-        rel="noopener">
-        GitHub
-      </a>
-
-      <a href="https://hazik.in/">
-        Website
-      </a>
-
+      <a href="https://github.com/Hazik-Mir" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://hazik.in/">Website</a>
     </div>
-
   </div>
-
 </footer>
-
 
 <!-- PROJECT DETAIL MODAL -->
 
-<div class="modal-overlay" id="modal-overlay">
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
 
   <div class="modal">
 
@@ -999,7 +329,7 @@ footer {
         </div>
 
         <div class="modal-credit-badge">
-          ⚠ Must credit hazik before use
+          Credit Hazik if you use this project
         </div>
 
       </div>
@@ -1035,6 +365,103 @@ const username = "Hazik-Mir";
 let currentRepo = null;
 let currentCommands = {};
 let activePlatform = "linux";
+let allRepos = [];
+let activeLang = "All";
+let lastFocus = null;
+
+const LANG_HUES = {};
+function langColor(l) {
+  let h = 0;
+  for (const c of l) h = (h * 31 + c.charCodeAt(0)) % 360;
+  return `hsl(${h} 62% 52%)`;
+}
+
+function buildFacts() {
+  const stars = allRepos.reduce((n, r) => n + r.stargazers_count, 0);
+  const counts = {};
+  allRepos.forEach(r => { if (r.language) counts[r.language] = (counts[r.language] || 0) + 1; });
+  const top = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+  document.getElementById("fact-projects").textContent = allRepos.length;
+  document.getElementById("fact-stars").textContent = stars;
+  document.getElementById("fact-lang").textContent = top ? top[0] : "—";
+  document.getElementById("fact-updated").textContent =
+    allRepos.length ? timeAgo(allRepos[0].pushed_at || allRepos[0].updated_at) : "—";
+}
+
+function buildChips() {
+  const langs = [...new Set(allRepos.map(r => r.language).filter(Boolean))].sort();
+  const box = document.getElementById("chips");
+  box.innerHTML = "";
+  ["All", ...langs].forEach(l => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "chip";
+    b.textContent = l;
+    b.setAttribute("aria-pressed", l === activeLang);
+    b.addEventListener("click", () => { activeLang = l; buildChips(); renderList(); });
+    box.appendChild(b);
+  });
+  box.style.display = langs.length > 1 ? "" : "none";
+}
+
+function renderList() {
+  const box = document.getElementById("projects");
+  const status = document.getElementById("status");
+  const q = document.getElementById("search").value.trim().toLowerCase();
+  const sort = document.getElementById("sort").value;
+
+  let list = allRepos.filter(r =>
+    (activeLang === "All" || r.language === activeLang) &&
+    (!q || `${r.name} ${r.description || ""} ${(r.topics || []).join(" ")}`.toLowerCase().includes(q))
+  );
+
+  list.sort((a, b) =>
+    sort === "stars" ? b.stargazers_count - a.stargazers_count :
+    sort === "name" ? a.name.localeCompare(b.name) :
+    new Date(b.updated_at) - new Date(a.updated_at)
+  );
+
+  status.textContent = `${list.length} of ${allRepos.length}`;
+  box.innerHTML = "";
+
+  if (!list.length) {
+    box.innerHTML = `<div class="empty">No projects match. Clear the search or choose "All".</div>`;
+    return;
+  }
+
+  list.forEach(repo => {
+    const el = document.createElement("button");
+    el.className = "project";
+    el.type = "button";
+    el.addEventListener("click", () => openProject(repo));
+    const lang = repo.language || "Code";
+    el.innerHTML = `
+      <div class="project-name">${escapeHTML(repo.name)}</div>
+      <div class="project-description">${escapeHTML(repo.description || "No description provided.")}</div>
+      <div class="project-info">
+        <span class="language" style="--dot:${langColor(lang)}">${escapeHTML(lang)}</span>
+        <span>★ ${repo.stargazers_count}</span>
+        <span>⑂ ${repo.forks_count}</span>
+        <span>Updated ${timeAgo(repo.updated_at)}</span>
+      </div>`;
+    box.appendChild(el);
+  });
+}
+
+document.getElementById("search").addEventListener("input", renderList);
+document.getElementById("sort").addEventListener("change", renderList);
+
+(function theme() {
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+  document.getElementById("theme-btn").addEventListener("click", () => {
+    const dark = root.dataset.theme
+      ? root.dataset.theme === "dark"
+      : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+  });
+})();
 
 
 /* ---------- LOAD PROJECTS ---------- */
@@ -1073,70 +500,17 @@ async function loadProjects() {
       return;
     }
 
-    status.textContent =
-      `${ownRepos.length} project${ownRepos.length === 1 ? "" : "s"}`;
-
-    ownRepos.forEach(repo => {
-
-      const project = document.createElement("button");
-
-      project.className = "project";
-      project.type = "button";
-
-      project.addEventListener(
-        "click",
-        () => openProject(repo)
-      );
-
-      const description =
-        repo.description ||
-        "No description provided.";
-
-      const language =
-        repo.language ||
-        "Code";
-
-      project.innerHTML = `
-
-        <div class="project-name">
-          ${escapeHTML(repo.name)}
-        </div>
-
-        <div class="project-description">
-          ${escapeHTML(description)}
-        </div>
-
-        <div class="project-info">
-
-          <span class="language">
-            ${escapeHTML(language)}
-          </span>
-
-          <span>
-            ★ ${repo.stargazers_count}
-          </span>
-
-          <span>
-            ⑂ ${repo.forks_count}
-          </span>
-
-          <span>
-            Updated ${timeAgo(repo.updated_at)}
-          </span>
-
-        </div>
-
-      `;
-
-      projects.appendChild(project);
-
-    });
+    allRepos = ownRepos;
+    buildFacts();
+    buildChips();
+    renderList();
 
   } catch (error) {
 
     console.error(error);
 
     status.textContent = "Offline";
+    document.getElementById("chips").style.display = "none";
 
     projects.innerHTML = `
 
@@ -1150,9 +524,9 @@ async function loadProjects() {
           href="https://github.com/${username}"
           target="_blank"
           rel="noopener"
-          style="color:#58a6ff">
+          style="color:var(--accent)">
 
-          Open GitHub instead →
+          Open GitHub instead
 
         </a>
 
@@ -1193,9 +567,11 @@ async function openProject(repoStub) {
       Loading project details…
     </div>`;
 
+  lastFocus = document.activeElement;
   overlay.classList.add("open");
 
   document.body.style.overflow = "hidden";
+  overlay.querySelector(".modal-close").focus();
 
   try {
 
@@ -1319,9 +695,9 @@ async function openProject(repoStub) {
             href="${repoStub.html_url}"
             target="_blank"
             rel="noopener"
-            style="color:#58a6ff">
+            style="color:var(--accent)">
 
-            Open on GitHub instead →
+            Open on GitHub instead
 
           </a>
 
@@ -1343,6 +719,8 @@ function closeModal() {
     .classList.remove("open");
 
   document.body.style.overflow = "";
+
+  if (lastFocus) lastFocus.focus();
 
 }
 
@@ -1546,7 +924,7 @@ function renderModal(
         Repo
       </span>
 
-      GitHub —
+      GitHub:
       ${escapeHTML(
         repo.full_name ||
         repo.name
