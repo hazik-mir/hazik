@@ -284,7 +284,8 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
 
       <div class="ad-container" aria-label="Advertisement">
         <span class="ad-label">Advertisement</span>
-        <ins class="adsbygoogle" style="display:block; min-height:90px; text-align:center;" data-ad-client="ca-pub-3421766795441970" data-ad-slot="3223311087" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script async="async" data-cfasync="false" src="https://bellnewyork.org/21/670fcf440391f5525343fdbd22f34572"></script>
+        <div id="container-670fcf440391f5525343fdbd22f34572"></div>
       </div>
 
       <div class="toolbar">
@@ -453,6 +454,14 @@ async function refresh(){
 }
 }else{
 /* ================= MAIN SITE ================= */
+const AD_ID="container-670fcf440391f5525343fdbd22f34572",AD_SRC="https://bellnewyork.org/21/670fcf440391f5525343fdbd22f34572";
+/* the ad code can only fill one box per id, so the sidebar box gives up its id while the wait screen shows a fresh ad */
+function freeGateAd(){const b=$("adbox");if(b)b.innerHTML="";const side=document.getElementById(AD_ID+"-side");if(side)side.id=AD_ID}
+function loadGateAd(){
+  const side=document.getElementById(AD_ID);if(side)side.id=AD_ID+"-side";
+  const box=$("adbox"),c=document.createElement("div");c.id=AD_ID;box.appendChild(c);
+  const sc=document.createElement("script");sc.async=true;sc.setAttribute("data-cfasync","false");sc.src=AD_SRC;box.appendChild(sc);
+}
 let all=[],cat="All",timer=0,lastFocus=null;
 const ago=d=>{const s=(Date.now()-new Date(d))/1e3;return s<3600?Math.max(1,Math.floor(s/60))+"m ago":s<86400?Math.floor(s/3600)+"h ago":s<2592000?Math.floor(s/86400)+"d ago":Math.floor(s/2592000)+"mo ago"};
 const fmt=d=>d?new Date(d).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}):"—";
@@ -530,16 +539,12 @@ function gate(l){
   let t=WAIT;const C=2*Math.PI*66,arc=$("arc");arc.style.strokeDasharray=C;
   const paint=()=>{arc.style.strokeDashoffset=C*t/WAIT;$("g-n").textContent=t;$("g-s").textContent=t};
   $("g-t").textContent=l.title||"";paint();
-  const ad='<ins class="adsbygoogle" style="display:block;min-height:120px" data-ad-client="ca-pub-3421766795441970" data-ad-slot="3223311087" data-ad-format="auto" data-full-width-responsive="true"></ins>';
-  $("adbox").innerHTML=ad+'<div style="height:14px"></div>'+ad;
-  $("gate").classList.add("open");
-  setTimeout(()=>{document.querySelectorAll("#adbox ins.adsbygoogle").forEach(()=>{try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch(e){}})},80);
+  freeGateAd();$("gate").classList.add("open");loadGateAd();
   clearInterval(timer);
   timer=setInterval(()=>{if(document.hidden)return;t--;paint();if(t<=0){clearInterval(timer);location.href=l.url}},1000);
 }
-$("g-x").onclick=()=>{clearInterval(timer);$("gate").classList.remove("open")};
+$("g-x").onclick=()=>{clearInterval(timer);$("gate").classList.remove("open");freeGateAd()};
 
-try{(window.adsbygoogle=window.adsbygoogle||[]).push({})}catch(e){}
 load();
 
 /* ad blocker check: hidden bait, blocked ad requests, or ad script that never ran */
@@ -547,13 +552,11 @@ let walled=false;
 function showWall(){if(walled)return;walled=true;$("adblock").classList.add("open");document.body.style.overflow="hidden"}
 function baitHidden(){const b=$("adbait");if(!b||!document.body.contains(b))return true;const c=getComputedStyle(b);return !b.offsetHeight||c.display==="none"||c.visibility==="hidden"||c.opacity==="0"}
 async function netBlocked(){
-  for(const u of ["https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js","https://googleads.g.doubleclick.net/pagead/id"]){
+  for(const u of [AD_SRC,"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]){
     try{await fetch(u,{method:"HEAD",mode:"no-cors",cache:"no-store"})}catch(e){return true}}
   return false}
-const insDead=()=>{const i=document.querySelector("ins.adsbygoogle");return !!i&&!i.hasAttribute("data-adsbygoogle-status")};
 addEventListener("load",()=>{
   setTimeout(async()=>{if(window.__adErr||baitHidden()||await netBlocked())showWall()},800);
-  setTimeout(()=>{if(insDead())showWall()},6000);
   setInterval(()=>{if(window.__adErr||baitHidden())showWall()},3000);
 });
 }
