@@ -229,14 +229,15 @@ footer{margin-top:64px;padding:28px 0;border-top:1px solid var(--line);color:var
 
 /* ---- additions: Supabase projects, upload, wait gate ---- */
 .project{display:flex;align-items:center;gap:16px}
-.pthumb{width:112px;height:72px;object-fit:cover;border-radius:9px;border:1px solid var(--line);background:var(--sunk);flex-shrink:0}
+.pthumb{width:auto;height:auto;max-width:112px;max-height:112px;object-fit:contain;border-radius:9px;border:1px solid var(--line);background:var(--sunk);flex-shrink:0}
+.pthumb.ph{width:96px;height:72px}
 .pinfo{min-width:0;flex:1}
 .viz{margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
 .viz h3,.fld h3{font:700 13px/1.2 var(--display);margin:0 0 10px}
 .bar{display:flex;align-items:center;gap:10px;font-size:12.5px;margin:7px 0}
 .bar span{width:86px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;color:var(--muted)}
 .bar i{display:block;height:8px;border-radius:99px;background:var(--accent)}
-.hero{width:100%;max-height:340px;object-fit:cover;border-radius:12px;border:1px solid var(--line);display:block}
+.hero{width:auto;height:auto;max-width:100%;max-height:70vh;object-fit:contain;border-radius:12px;border:1px solid var(--line);display:block;margin:0 auto;background:var(--sunk)}
 .video{width:100%;aspect-ratio:16/9;border:1px solid var(--line);border-radius:12px;display:block}
 button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:pointer;text-align:left;word-break:normal}
 .fld label{display:block;font-weight:600;font-size:13px;margin:16px 0 6px}
@@ -253,7 +254,7 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
 .ring b{position:absolute;inset:0;display:grid;place-items:center;font:800 40px var(--display)}
 .linkmore{background:none;border:0;color:var(--accent);font:600 13px var(--body);cursor:pointer;padding:0;margin-top:8px}
 .ucard{max-width:680px;margin:48px auto}
-@media(max-width:600px){.pthumb{width:84px;height:58px}}
+@media(max-width:600px){.pthumb{max-width:84px;max-height:84px}.pthumb.ph{width:84px;height:58px}}
 </style>
 </head>
 <body>
@@ -298,7 +299,7 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
 
     <section class="about" id="contribute">
       <div class="panel"><h2>About</h2><p>Open a project to see screenshots, video, credits and download links.</p></div>
-      <div class="panel"><h2>Free with a short wait</h2><p>Every link starts with a 20 second countdown. It keeps this site free to run.</p></div>
+      <div class="panel"><h2>Free with a short wait</h2><p>Every link starts with a 40 second countdown. It keeps this site free to run.</p></div>
     </section>
   </main>
 </div>
@@ -331,8 +332,8 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
     <div class="gate">
       <div class="modal-title" style="font-size:20px">Your link is almost ready</div>
       <p class="muted-line" id="g-t" style="margin:6px 0 0"></p>
-      <div class="ring"><svg width="150" height="150" viewBox="0 0 150 150"><circle class="bg" cx="75" cy="75" r="66"/><circle class="arc" id="arc" cx="75" cy="75" r="66"/></svg><b id="g-n">20</b></div>
-      <p class="muted-line" style="margin:0 0 14px">Please wait <span id="g-s">20</span> seconds. You'll be taken there automatically.</p>
+      <div class="ring"><svg width="150" height="150" viewBox="0 0 150 150"><circle class="bg" cx="75" cy="75" r="66"/><circle class="arc" id="arc" cx="75" cy="75" r="66"/></svg><b id="g-n">40</b></div>
+      <p class="muted-line" style="margin:0 0 14px">Please wait <span id="g-s">40</span> seconds. You'll be taken there automatically.</p>
       <div id="adbox" style="min-height:120px"></div>
       <button class="button secondary" id="g-x" type="button" style="margin-top:14px">Cancel</button>
     </div>
@@ -379,7 +380,7 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
 </div>
 
 <script>
-const SB="https://zfgslsbpdampqznvtpmq.supabase.co", ANON="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpmZ3Nsc2JwZGFtcHF6bnZ0cG1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5MjYyNzIsImV4cCI6MjEwNjUwMjI3Mn0.m878T3kDCGjxAhckxNGR1pyPDQCnFNQhsTlFHiBufMU", WAIT=20;
+const SB="https://zfgslsbpdampqznvtpmq.supabase.co", ANON="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpmZ3Nsc2JwZGFtcHF6bnZ0cG1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5MjYyNzIsImV4cCI6MjEwNjUwMjI3Mn0.m878T3kDCGjxAhckxNGR1pyPDQCnFNQhsTlFHiBufMU", WAIT=40;
 const H=ANON.startsWith("eyJ")?{apikey:ANON,Authorization:"Bearer "+ANON}:{apikey:ANON};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -503,7 +504,7 @@ function list(){
   if(!l.length){box.innerHTML='<div class="empty">No projects match. Clear the search or choose "All".</div>';return}
   l.forEach(p=>{
     const el=document.createElement("button");el.className="project";el.type="button";el.onclick=()=>openProject(p);
-    el.innerHTML=`${safe(p.image_url)?`<img class="pthumb" loading="lazy" alt="" src="${esc(p.image_url)}">`:'<div class="pthumb"></div>'}
+    el.innerHTML=`${safe(p.image_url)?`<img class="pthumb" loading="lazy" alt="" src="${esc(p.image_url)}">`:'<div class="pthumb ph"></div>'}
       <div class="pinfo"><div class="project-name">${esc(p.title)}</div><div class="project-description">${fmtTxt(p.description||"No description provided.")}</div>
       <div class="project-info">${p.category?`<span class="language" style="--dot:${hue(p.category)}">${esc(p.category)}</span>`:""}${p.type?`<span>${esc(p.type)}</span>`:""}<span>Added ${ago(p.created_at)}</span></div></div>`;
     box.appendChild(el);
