@@ -255,6 +255,9 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
 .linkmore{background:none;border:0;color:var(--accent);font:600 13px var(--body);cursor:pointer;padding:0;margin-top:8px}
 .ad-slot{margin:18px 0;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;text-align:center}
 .ad-slot.empty{min-height:1px;margin:0;padding:0;border:0;background:none}
+.ad-panel{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:0 0 20px}
+.ad-panel .ad-slot{margin:0}
+.adframe{display:block;width:100%;border:0;background:transparent}
 .ucard{max-width:680px;margin:48px auto}
 @media(max-width:600px){.pthumb{max-width:84px;max-height:84px}.pthumb.ph{width:84px;height:58px}}
 </style>
@@ -285,7 +288,7 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
     <section aria-labelledby="projects-title">
       <div class="projects-header"><h2 id="projects-title">Projects</h2><span class="status" id="status" aria-live="polite">Loading…</span></div>
 
-      <div class="ad-slot empty" id="slot-side"></div>
+      <div class="ad-panel" id="slot-top" aria-label="Advertisements"></div>
 
       <div class="toolbar">
         <div class="search"><input id="search" type="search" placeholder="Search projects" aria-label="Search projects" autocomplete="off"></div>
@@ -297,7 +300,7 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
 
     <section class="about" id="contribute">
       <div class="panel"><h2>About</h2><p>Open a project to see screenshots, video, credits and download links.</p></div>
-      <div class="panel"><h2>Free with a short wait</h2><p>Every link starts with a 40 second countdown. Its To avoid traffic</p></div>
+      <div class="panel"><h2>Free with a short wait</h2><p>Every link starts with a 40 second countdown. It keeps this site free to run.</p></div>
     </section>
   </main>
 </div>
@@ -333,7 +336,7 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
       <p class="muted-line" id="g-t" style="margin:6px 0 0"></p>
       <div class="ring"><svg width="150" height="150" viewBox="0 0 150 150"><circle class="bg" cx="75" cy="75" r="66"/><circle class="arc" id="arc" cx="75" cy="75" r="66"/></svg><b id="g-n">40</b></div>
       <p class="muted-line" style="margin:0 0 14px">Please wait <span id="g-s">40</span> seconds. You'll be taken there automatically.</p>
-      <p class="muted-line" style="margin:0 0 14px"><b>Try clicking on the ads below..</b> Thanks for your support!</p>
+      <p class="muted-line" style="margin:0 0 14px"><b>Click on the ads below .</b> Thanks for your support!</p>
       <div id="adbox" style="min-height:120px"></div>
       <button class="button secondary" id="g-x" type="button" style="margin-top:14px">Cancel</button>
     </div>
@@ -456,28 +459,34 @@ async function refresh(){
 }else{
 /* ================= MAIN SITE ================= */
 const U={id:"container-670fcf440391f5525343fdbd22f34572",src:"https://bellnewyork.org/21/670fcf440391f5525343fdbd22f34572"},AD_SRC=U.src;
-/* one entry per ad spot. Made more units in Adsterra? Paste each new {id,src} here, e.g. footer:{id:"container-...",src:"https://..."} */
-const ADS={side:U,list:U,modal:U,footer:U,gate:U};
-/* the ad code fills the box with its id, so spots are loaded one at a time and finished ads give up their id */
-let adQ=Promise.resolve();
-function mountAd(slot,u){
-  adQ=adQ.then(()=>new Promise(done=>{
-    if(!slot.isConnected){done();return}
-    document.querySelectorAll('[id="'+u.id+'"]').forEach(e=>e.id=u.id+"-x"+Math.random().toString(36).slice(2,7));
-    const c=document.createElement("div");c.id=u.id;slot.appendChild(c);
-    const sc=document.createElement("script");sc.async=true;sc.setAttribute("data-cfasync","false");sc.src=u.src;slot.appendChild(sc);
-    let n=0;const iv=setInterval(()=>{n++;
-      if(c.childNodes.length){clearInterval(iv);slot.classList.remove("empty");slot.insertAdjacentHTML("afterbegin",'<span class="ad-label">Advertisement</span>');done()}
-      else if(n>40){clearInterval(iv);done()}},150);
-  }));
+/* ad spots. Created more units in Adsterra? Paste each new {id:"container-...",src:"https://..."} instead of U below */
+const ADS={top:[U,U,U,U],list:U,modal:U,footer:U,gate:U};
+/* every ad lives in its own little frame, so ads never fight over the same container and all of them load at once */
+function adFrame(u){
+  const f=document.createElement("iframe");f.className="adframe";f.title="Advertisement";f.setAttribute("scrolling","no");f.style.height="0";
+  f.srcdoc='<!doctype html><html><head><meta charset="utf-8"><base target="_blank"><style>html,body{margin:0;background:transparent}</style></head><body><script async="async" data-cfasync="false" src="'+u.src+'"><\/script><div id="'+u.id+'"></div></body></html>';
+  return f;
 }
-const adIO="IntersectionObserver" in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){adIO.unobserve(e.target);mountAd(e.target,e.target._u)}}),{rootMargin:"200px"}):null;
-function lazyAd(el,u){el._u=u;adIO?adIO.observe(el):mountAd(el,u)}
+function showAd(slot,u){
+  const f=adFrame(u);slot.appendChild(f);let n=0;
+  const iv=setInterval(()=>{n++;
+    try{const d=f.contentDocument,c=d&&d.getElementById(u.id),h=d&&d.body?d.body.scrollHeight:0;
+      if(c&&c.childNodes.length&&h>10){f.style.height=Math.min(h,420)+"px";
+        if(slot.classList.contains("empty")){slot.classList.remove("empty");slot.insertAdjacentHTML("afterbegin",'<span class="ad-label">Advertisement</span>')}}
+    }catch(e){}
+    if(n>80)clearInterval(iv)},500);
+}
+const adIO="IntersectionObserver" in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){adIO.unobserve(e.target);showAd(e.target,e.target._u)}}),{rootMargin:"200px"}):null;
+function lazyAd(el,u){el._u=u;adIO?adIO.observe(el):showAd(el,u)}
 function mkSlot(name){const d=document.createElement("div");d.className="ad-slot empty";lazyAd(d,ADS[name]);return d}
 let _listSlot=null;
 function freeGateAd(){const b=$("adbox");if(b)b.innerHTML=""}
-function loadGateAd(){const s=document.createElement("div");s.className="ad-slot empty";s.style.margin="0";$("adbox").appendChild(s);mountAd(s,ADS.gate)}
-lazyAd($("slot-side"),ADS.side);lazyAd($("slot-footer"),ADS.footer);
+function loadGateAd(){for(let i=0;i<2;i++){const s=document.createElement("div");s.className="ad-slot empty";s.style.margin="0 0 12px";$("adbox").appendChild(s);showAd(s,ADS.gate)}}
+{const n=matchMedia("(max-width:700px)").matches?2:4,box=$("slot-top");
+ for(let i=0;i<n;i++){const d=document.createElement("div");d.className="ad-slot empty";box.appendChild(d);lazyAd(d,ADS.top[i]||ADS.top[0])}}
+lazyAd($("slot-footer"),ADS.footer);
+/* social bar */
+{const sb=document.createElement("script");sb.setAttribute("data-cfasync","false");sb.src="https://bellnewyork.org/14/a4041a834c6f15242f97893a1d644c53";document.body.appendChild(sb)}
 let all=[],cat="All",timer=0,lastFocus=null;
 const ago=d=>{const s=(Date.now()-new Date(d))/1e3;return s<3600?Math.max(1,Math.floor(s/60))+"m ago":s<86400?Math.floor(s/3600)+"h ago":s<2592000?Math.floor(s/86400)+"d ago":Math.floor(s/2592000)+"mo ago"};
 const fmt=d=>d?new Date(d).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}):"—";
