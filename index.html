@@ -253,6 +253,8 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
 .ring .bg{stroke:var(--line)}.ring .arc{stroke:var(--accent);transition:stroke-dashoffset 1s linear}
 .ring b{position:absolute;inset:0;display:grid;place-items:center;font:800 40px var(--display)}
 .linkmore{background:none;border:0;color:var(--accent);font:600 13px var(--body);cursor:pointer;padding:0;margin-top:8px}
+.ad-slot{margin:18px 0;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden;text-align:center}
+.ad-slot.empty{min-height:1px;margin:0;padding:0;border:0;background:none}
 .ucard{max-width:680px;margin:48px auto}
 @media(max-width:600px){.pthumb{max-width:84px;max-height:84px}.pthumb.ph{width:84px;height:58px}}
 </style>
@@ -283,11 +285,7 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
     <section aria-labelledby="projects-title">
       <div class="projects-header"><h2 id="projects-title">Projects</h2><span class="status" id="status" aria-live="polite">Loading…</span></div>
 
-      <div class="ad-container" aria-label="Advertisement">
-        <span class="ad-label">Advertisement</span>
-        <script async="async" data-cfasync="false" src="https://bellnewyork.org/21/670fcf440391f5525343fdbd22f34572"></script>
-        <div id="container-670fcf440391f5525343fdbd22f34572"></div>
-      </div>
+      <div class="ad-slot empty" id="slot-side"></div>
 
       <div class="toolbar">
         <div class="search"><input id="search" type="search" placeholder="Search projects" aria-label="Search projects" autocomplete="off"></div>
@@ -299,11 +297,12 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
 
     <section class="about" id="contribute">
       <div class="panel"><h2>About</h2><p>Open a project to see screenshots, video, credits and download links.</p></div>
-      <div class="panel"><h2>Free with a short wait</h2><p>Every link starts with a 40 second countdown. It keeps this site free to run.</p></div>
+      <div class="panel"><h2>Free with a short wait</h2><p>Every link starts with a 40 second countdown. Its To avoid traffic</p></div>
     </section>
   </main>
 </div>
 
+<div class="wrap"><div class="ad-slot empty" id="slot-footer"></div></div>
 <footer>
   <div class="wrap foot">
     <span>© 2026 HAZIK</span>
@@ -334,6 +333,7 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
       <p class="muted-line" id="g-t" style="margin:6px 0 0"></p>
       <div class="ring"><svg width="150" height="150" viewBox="0 0 150 150"><circle class="bg" cx="75" cy="75" r="66"/><circle class="arc" id="arc" cx="75" cy="75" r="66"/></svg><b id="g-n">40</b></div>
       <p class="muted-line" style="margin:0 0 14px">Please wait <span id="g-s">40</span> seconds. You'll be taken there automatically.</p>
+      <p class="muted-line" style="margin:0 0 14px"><b>Try clicking on the ads below..</b> Thanks for your support!</p>
       <div id="adbox" style="min-height:120px"></div>
       <button class="button secondary" id="g-x" type="button" style="margin-top:14px">Cancel</button>
     </div>
@@ -455,14 +455,29 @@ async function refresh(){
 }
 }else{
 /* ================= MAIN SITE ================= */
-const AD_ID="container-670fcf440391f5525343fdbd22f34572",AD_SRC="https://bellnewyork.org/21/670fcf440391f5525343fdbd22f34572";
-/* the ad code can only fill one box per id, so the sidebar box gives up its id while the wait screen shows a fresh ad */
-function freeGateAd(){const b=$("adbox");if(b)b.innerHTML="";const side=document.getElementById(AD_ID+"-side");if(side)side.id=AD_ID}
-function loadGateAd(){
-  const side=document.getElementById(AD_ID);if(side)side.id=AD_ID+"-side";
-  const box=$("adbox"),c=document.createElement("div");c.id=AD_ID;box.appendChild(c);
-  const sc=document.createElement("script");sc.async=true;sc.setAttribute("data-cfasync","false");sc.src=AD_SRC;box.appendChild(sc);
+const U={id:"container-670fcf440391f5525343fdbd22f34572",src:"https://bellnewyork.org/21/670fcf440391f5525343fdbd22f34572"},AD_SRC=U.src;
+/* one entry per ad spot. Made more units in Adsterra? Paste each new {id,src} here, e.g. footer:{id:"container-...",src:"https://..."} */
+const ADS={side:U,list:U,modal:U,footer:U,gate:U};
+/* the ad code fills the box with its id, so spots are loaded one at a time and finished ads give up their id */
+let adQ=Promise.resolve();
+function mountAd(slot,u){
+  adQ=adQ.then(()=>new Promise(done=>{
+    if(!slot.isConnected){done();return}
+    document.querySelectorAll('[id="'+u.id+'"]').forEach(e=>e.id=u.id+"-x"+Math.random().toString(36).slice(2,7));
+    const c=document.createElement("div");c.id=u.id;slot.appendChild(c);
+    const sc=document.createElement("script");sc.async=true;sc.setAttribute("data-cfasync","false");sc.src=u.src;slot.appendChild(sc);
+    let n=0;const iv=setInterval(()=>{n++;
+      if(c.childNodes.length){clearInterval(iv);slot.classList.remove("empty");slot.insertAdjacentHTML("afterbegin",'<span class="ad-label">Advertisement</span>');done()}
+      else if(n>40){clearInterval(iv);done()}},150);
+  }));
 }
+const adIO="IntersectionObserver" in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){adIO.unobserve(e.target);mountAd(e.target,e.target._u)}}),{rootMargin:"200px"}):null;
+function lazyAd(el,u){el._u=u;adIO?adIO.observe(el):mountAd(el,u)}
+function mkSlot(name){const d=document.createElement("div");d.className="ad-slot empty";lazyAd(d,ADS[name]);return d}
+let _listSlot=null;
+function freeGateAd(){const b=$("adbox");if(b)b.innerHTML=""}
+function loadGateAd(){const s=document.createElement("div");s.className="ad-slot empty";s.style.margin="0";$("adbox").appendChild(s);mountAd(s,ADS.gate)}
+lazyAd($("slot-side"),ADS.side);lazyAd($("slot-footer"),ADS.footer);
 let all=[],cat="All",timer=0,lastFocus=null;
 const ago=d=>{const s=(Date.now()-new Date(d))/1e3;return s<3600?Math.max(1,Math.floor(s/60))+"m ago":s<86400?Math.floor(s/3600)+"h ago":s<2592000?Math.floor(s/86400)+"d ago":Math.floor(s/2592000)+"mo ago"};
 const fmt=d=>d?new Date(d).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}):"—";
@@ -502,12 +517,13 @@ function list(){
   if($("sort").value==="name")l.sort((a,b)=>a.title.localeCompare(b.title));
   $("status").textContent=`${l.length} of ${all.length}`;box.innerHTML="";
   if(!l.length){box.innerHTML='<div class="empty">No projects match. Clear the search or choose "All".</div>';return}
-  l.forEach(p=>{
+  l.forEach((p,i)=>{
     const el=document.createElement("button");el.className="project";el.type="button";el.onclick=()=>openProject(p);
     el.innerHTML=`${safe(p.image_url)?`<img class="pthumb" loading="lazy" alt="" src="${esc(p.image_url)}">`:'<div class="pthumb ph"></div>'}
       <div class="pinfo"><div class="project-name">${esc(p.title)}</div><div class="project-description">${fmtTxt(p.description||"No description provided.")}</div>
       <div class="project-info">${p.category?`<span class="language" style="--dot:${hue(p.category)}">${esc(p.category)}</span>`:""}${p.type?`<span>${esc(p.type)}</span>`:""}<span>Added ${ago(p.created_at)}</span></div></div>`;
     box.appendChild(el);
+    if(i===3&&l.length>4)box.appendChild(_listSlot||(_listSlot=mkSlot("list")));
   });
 }
 $("search").addEventListener("input",list);$("sort").addEventListener("change",list);
@@ -527,6 +543,7 @@ function openProject(p){
     (full?`<div class="modal-section"><h3>About this project</h3><div id="fd" style="white-space:pre-wrap">${fmtTxt(short||full)}</div>${short?'<button class="linkmore" id="more" type="button">Show more</button>':""}</div>`:"")+
     (v?`<div class="modal-section"><h3>Video</h3><iframe class="video" src="https://www.youtube-nocookie.com/embed/${v}" title="Video" loading="lazy" allowfullscreen></iframe></div>`:"")+
     (links.length?`<div class="modal-section"><h3>Links</h3><div class="links-list">${links.map((l,i)=>`<button class="link-row" type="button" data-i="${i}"><span class="tag">Link</span>${esc(l.title||"Open link")}</button>`).join("")}</div></div>`:"");
+  $("modal-body").appendChild(mkSlot("modal"));
   $("modal-body").querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>gate(links[b.dataset.i]));
   const mb=$("more");if(mb){let o=false;mb.onclick=()=>{o=!o;$("fd").innerHTML=fmtTxt(o?full:short);mb.textContent=o?"Show less":"Show more"}}
   $("modal-overlay").classList.add("open");document.body.style.overflow="hidden";$("modal-close").focus();
