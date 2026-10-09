@@ -61,8 +61,7 @@
 </script>
 
 <!-- Google AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3421766795441970" onerror="window.__adErr=1"
-     crossorigin="anonymous"></script>
+<script>try{if(location.pathname!="/no-ads"&&!localStorage.getItem("hazik-no-ads")){const s=document.createElement("script");s.async=true;s.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3421766795441970";s.crossOrigin="anonymous";s.onerror=()=>window.__adErr=1;document.head.appendChild(s)}}catch(e){}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -382,6 +381,21 @@ button.link-row{width:100%;background:none;color:inherit;font:inherit;cursor:poi
   </div>
 </div>
 
+<div class="wrap" id="noads" hidden>
+  <div class="panel ucard" id="noads-lock">
+    <h2>Turn off ads on this device</h2>
+    <p>Enter the same security key used for uploads. This saves the preference only in this browser.</p>
+    <div class="fld"><input id="noads-key" type="password" autocomplete="current-password" aria-label="Security key"></div>
+    <p id="noads-msg" aria-live="polite" style="margin:10px 0"></p>
+    <button class="button" id="noads-go" type="button">Continue without ads</button>
+    <p><a href="/">Back to HAZIK</a></p>
+  </div>
+  <div class="panel ucard" id="noads-done" hidden>
+    <h2>Ads are off on this device</h2><p>This browser will keep the setting until you clear its site data or turn ads back on.</p>
+    <button class="button secondary" id="noads-on" type="button">Turn ads back on</button> <a class="button" href="/">Back to HAZIK</a>
+  </div>
+</div>
+
 <script>
 const SB="https://zfgslsbpdampqznvtpmq.supabase.co", ANON="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpmZ3Nsc2JwZGFtcHF6bnZ0cG1xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5MjYyNzIsImV4cCI6MjEwNjUwMjI3Mn0.m878T3kDCGjxAhckxNGR1pyPDQCnFNQhsTlFHiBufMU", WAIT=40;
 const H=ANON.startsWith("eyJ")?{apikey:ANON,Authorization:"Bearer "+ANON}:{apikey:ANON};
@@ -391,11 +405,18 @@ const safe=u=>/^https?:\/\//i.test(u||"")?u:"";
 const rpc=(fn,b)=>fetch(`${SB}/rest/v1/rpc/${fn}`,{method:"POST",headers:{...H,"Content-Type":"application/json"},body:JSON.stringify(b)});
 const NOKEY=ANON.startsWith("YOUR_");
 const isUp=/\/upload\/?$/i.test(location.pathname)||location.hash==="#upload"||location.search==="?upload";
+const isNoAds=/^\/no-ads\/?$/i.test(location.pathname);
 
 (function(){const r=document.documentElement;try{const t=localStorage.getItem("theme");if(t)r.dataset.theme=t}catch(e){}
 $("theme-btn").addEventListener("click",()=>{const d=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=d?"light":"dark";try{localStorage.setItem("theme",r.dataset.theme)}catch(e){}})})();
 
-if(isUp){
+if(isNoAds){
+  document.title="No ads — HAZIK";$('robots').content="noindex, nofollow";
+  $('home').hidden=true;document.querySelector('footer').hidden=true;$('modal-overlay').remove();$('gate').remove();$('adblock').remove();$('adbait').remove();$('up').hidden=true;$('noads').hidden=false;
+  if(localStorage.getItem('hazik-no-ads')){$('noads-lock').hidden=true;$('noads-done').hidden=false}
+  async function enableNoAds(){const key=$('noads-key').value.replace(/\s/g,'');$('noads-msg').className='';$('noads-msg').textContent='';if(NOKEY){$('noads-msg').className='err';$('noads-msg').textContent='The Supabase anon key is not configured.';return}try{const r=await rpc('check_key',{p_key:key}),j=await r.json().catch(()=>null);if(r.ok&&j===true){localStorage.setItem('hazik-no-ads','1');$('noads-lock').hidden=true;$('noads-done').hidden=false}else{$('noads-msg').className='err';$('noads-msg').textContent=r.ok?'Wrong key.':`Server error ${r.status}. Try again.`}}catch(e){$('noads-msg').className='err';$('noads-msg').textContent='Could not reach the server. Try again.'}}
+  $('noads-go').onclick=enableNoAds;$('noads-key').onkeydown=e=>{if(e.key==='Enter')enableNoAds()};$('noads-on').onclick=()=>{localStorage.removeItem('hazik-no-ads');location.href='/'};
+}else if(isUp){
 /* ================= UPLOAD PAGE ================= */
 $("home").hidden=true;document.querySelector("footer").hidden=true;$("modal-overlay").remove();$("gate").remove();$("adblock").remove();$("adbait").remove();$("up").hidden=false;
 document.title="Upload — HAZIK";$("robots").content="noindex, nofollow";
@@ -459,6 +480,7 @@ async function refresh(){
 }else{
 /* ================= MAIN SITE ================= */
 const U={id:"container-670fcf440391f5525343fdbd22f34572",src:"https://bellnewyork.org/21/670fcf440391f5525343fdbd22f34572"},AD_SRC=U.src;
+const noAdsActive=localStorage.getItem('hazik-no-ads')==='1';
 /* ad spots. Created more units in Adsterra? Paste each new {id:"container-...",src:"https://..."} instead of U below */
 const ADS={top:[U,U,U,U],list:U,modal:U,footer:U,gate:U};
 /* every ad lives in its own little frame, so ads never fight over the same container and all of them load at once */
@@ -477,16 +499,16 @@ function showAd(slot,u){
     if(n>80)clearInterval(iv)},500);
 }
 const adIO="IntersectionObserver" in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){adIO.unobserve(e.target);showAd(e.target,e.target._u)}}),{rootMargin:"200px"}):null;
-function lazyAd(el,u){el._u=u;adIO?adIO.observe(el):showAd(el,u)}
+function lazyAd(el,u){if(noAdsActive)return;el._u=u;adIO?adIO.observe(el):showAd(el,u)}
 function mkSlot(name){const d=document.createElement("div");d.className="ad-slot empty";lazyAd(d,ADS[name]);return d}
 let _listSlot=null;
 function freeGateAd(){const b=$("adbox");if(b)b.innerHTML=""}
-function loadGateAd(){for(let i=0;i<2;i++){const s=document.createElement("div");s.className="ad-slot empty";s.style.margin="0 0 12px";$("adbox").appendChild(s);showAd(s,ADS.gate)}}
+function loadGateAd(){if(noAdsActive)return;for(let i=0;i<2;i++){const s=document.createElement("div");s.className="ad-slot empty";s.style.margin="0 0 12px";$("adbox").appendChild(s);showAd(s,ADS.gate)}}
 {const n=matchMedia("(max-width:700px)").matches?2:4,box=$("slot-top");
  for(let i=0;i<n;i++){const d=document.createElement("div");d.className="ad-slot empty";box.appendChild(d);lazyAd(d,ADS.top[i]||ADS.top[0])}}
 lazyAd($("slot-footer"),ADS.footer);
 /* social bar */
-{const sb=document.createElement("script");sb.setAttribute("data-cfasync","false");sb.src="https://bellnewyork.org/14/a4041a834c6f15242f97893a1d644c53";document.body.appendChild(sb)}
+if(!localStorage.getItem('hazik-no-ads')){const sb=document.createElement("script");sb.setAttribute("data-cfasync","false");sb.src="https://bellnewyork.org/14/a4041a834c6f15242f97893a1d644c53";document.body.appendChild(sb)}
 let all=[],cat="All",timer=0,lastFocus=null;
 const ago=d=>{const s=(Date.now()-new Date(d))/1e3;return s<3600?Math.max(1,Math.floor(s/60))+"m ago":s<86400?Math.floor(s/3600)+"h ago":s<2592000?Math.floor(s/86400)+"d ago":Math.floor(s/2592000)+"mo ago"};
 const fmt=d=>d?new Date(d).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}):"—";
@@ -527,7 +549,7 @@ function list(){
   $("status").textContent=`${l.length} of ${all.length}`;box.innerHTML="";
   if(!l.length){box.innerHTML='<div class="empty">No projects match. Clear the search or choose "All".</div>';return}
   l.forEach((p,i)=>{
-    const el=document.createElement("button");el.className="project";el.type="button";el.onclick=()=>openProject(p);
+    const el=document.createElement("a");el.className="project";el.href=`#project/${encodeURIComponent(p.id)}`;el.onclick=e=>{e.preventDefault();openProject(p,true)};
     el.innerHTML=`${safe(p.image_url)?`<img class="pthumb" loading="lazy" alt="" src="${esc(p.image_url)}">`:'<div class="pthumb ph"></div>'}
       <div class="pinfo"><div class="project-name">${esc(p.title)}</div><div class="project-description">${fmtTxt(p.description||"No description provided.")}</div>
       <div class="project-info">${p.category?`<span class="language" style="--dot:${hue(p.category)}">${esc(p.category)}</span>`:""}${p.type?`<span>${esc(p.type)}</span>`:""}<span>Added ${ago(p.created_at)}</span></div></div>`;
@@ -537,7 +559,8 @@ function list(){
 }
 $("search").addEventListener("input",list);$("sort").addEventListener("change",list);
 
-function openProject(p){
+function openProject(p,writeHash=false){
+  if(writeHash&&p.id)history.replaceState(null,"",`#project/${encodeURIComponent(p.id)}`);
   lastFocus=document.activeElement;
   const full=p.full_description||"",short=clip(full,200);
   const v=yt(p.youtube_url),links=(p.links||[]).filter(l=>safe(l.url));
@@ -557,7 +580,7 @@ function openProject(p){
   const mb=$("more");if(mb){let o=false;mb.onclick=()=>{o=!o;$("fd").innerHTML=fmtTxt(o?full:short);mb.textContent=o?"Show less":"Show more"}}
   $("modal-overlay").classList.add("open");document.body.style.overflow="hidden";$("modal-close").focus();
 }
-function closeModal(){$("modal-overlay").classList.remove("open");document.body.style.overflow="";if(lastFocus)lastFocus.focus()}
+function closeModal(){$("modal-overlay").classList.remove("open");document.body.style.overflow="";if(location.hash.startsWith('#project/'))history.replaceState(null,"",location.pathname+location.search);if(lastFocus)lastFocus.focus()}
 $("modal-close").onclick=closeModal;
 $("modal-overlay").addEventListener("click",e=>{if(e.target.id==="modal-overlay")closeModal()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("gate").classList.contains("open"))closeModal()});
@@ -572,7 +595,9 @@ function gate(l){
 }
 $("g-x").onclick=()=>{clearInterval(timer);$("gate").classList.remove("open");freeGateAd()};
 
-load();
+function openFromHash(){const m=location.hash.match(/^#project\/(.+)$/);if(!m||!all.length)return;let id;try{id=decodeURIComponent(m[1])}catch(e){return}const p=all.find(x=>String(x.id)===id);if(p)openProject(p,false)}
+addEventListener('hashchange',openFromHash);
+load().then(openFromHash);
 
 /* ad blocker check: hidden bait, blocked ad requests, or ad script that never ran */
 let walled=false;
@@ -582,7 +607,7 @@ async function netBlocked(){
   for(const u of [AD_SRC,"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]){
     try{await fetch(u,{method:"HEAD",mode:"no-cors",cache:"no-store"})}catch(e){return true}}
   return false}
-addEventListener("load",()=>{
+if(!noAdsActive)addEventListener("load",()=>{
   setTimeout(async()=>{if(window.__adErr||baitHidden()||await netBlocked())showWall()},800);
   setInterval(()=>{if(window.__adErr||baitHidden())showWall()},3000);
 });
